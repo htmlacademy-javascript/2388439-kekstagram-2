@@ -1,25 +1,22 @@
 // Функция для проверки длины строки.
 
-function checkMaxLength(checkCharacterCount, maxLength){
-  checkCharacterCount = checkCharacterCount.length;
-  return checkCharacterCount <= maxLength;
+function checkStringLength(string, maxLength){
+  return string.length <= maxLength;
 }
 
-checkMaxLength('Я люблю яблоки', 20);
+checkStringLength('Я люблю яблоки', 20);
 
 // Функция для проверки, является ли строка палиндромом.
 
-function palindromeCheck(stringCheck){
-  stringCheck = stringCheck.replaceAll(' ', '');
-  stringCheck = stringCheck.toLowerCase();
-  const len = stringCheck.length;
+function checksStringPalindrome(string){
+  string = string.replaceAll(' ', '').toLowerCase();
 
-  for(let i = 0; i < len / 2; i++){
-    if (stringCheck[i] !== stringCheck[len - 1 - i]){
+  for(let i = 0; i < string.length / 2; i++){
+    if (string[i] !== string[string.length - 1 - i]){
       return false;
     }
   }
   return true;
 }
 
-palindromeCheck('Лёша на полке клопа нашёл');
+checksStringPalindrome('Лёша на полке клопа нашёл');
