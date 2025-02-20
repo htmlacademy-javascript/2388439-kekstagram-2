@@ -1,32 +1,5 @@
 // Нужно создать функцию для создания массива из 25 сгенерированных объектов.
 
-//Пустые массивы для идентификаторов и лайков возможно не нужны.
-
-let identifiers = []
-let likes = []
-
-// Массив с сылками на аватары
-
-let avatar = [
-  'img/avatar-1.svg',
-  'img/avatar-2.svg',
-  'img/avatar-3.svg',
-  'img/avatar-4.svg',
-  'img/avatar-5.svg',
-  'img/avatar-6.svg'
-]
-
-// Массив с описаниями для фотографий.
-
-let description = [
-  'Описание фотографии-1',
-  'Описание фотографии-2',
-  'Описание фотографии-3',
-  'Описание фотографии-4',
-  'Описание фотографии-5',
-  'Описание фотографии-6'
-]
-
 let comments = [
   'Всё отлично!',
   'В целом всё неплохо. Но не всё.',
@@ -45,14 +18,49 @@ let nameAutors = [
   'Алёнушка',
   'Любава',
   'Настасья'
-]
+] 
 
-let DescriptionPublishedPhoto = function (){
+let generatesComments = function (){
+
+  let randomId = getRandomInteger(0, id.length - 1);
+
   return {
     id: '',
-    url: '',
-    description: '',
-    likes: '',
-    comments: ''
+    avatar: 'img/avatar-' + +'.svg',
+    message:'',
+    name:'',
+  }
+}
+
+// Функция генерирующая случайное число из диапазона.
+
+let getRandomInteger = (a, b) => {
+  let lower = Math.ceil(Math.min(a, b));
+  let upper = Math.floor(Math.max(a, b));
+  let result = Math.random() * (upper - lower + 1) + lower;
+  return Math.floor(result);
+};
+
+let descriptionPublishedPhoto = function (){ // 
+  let id =[]
+  for(let i = 1; i <= 25; i++){
+    id.push(i);
+  }
+  let randomId = getRandomInteger(0, id.length - 1);
+  let randomDescription = getRandomInteger(0, id.length - 1);
+
+  return {
+    id: id[randomId], // число — идентификатор опубликованной фотографии. Это число от 1 до 25. Идентификаторы не должны повторяться.
+    url: 'photos/' + id[randomId] +'.jpg', // строка — адрес картинки вида photos/{{i}}.jpg, где {{i}} — это число от 1 до 25. Адреса картинок не должны повторяться.
+    description: 'Описание фотографии - ' + [randomDescription], // строка — описание фотографии. Описание придумайте самостоятельно.
+    likes: '', // число — количество лайков, поставленных фотографии. Случайное число от 15 до 200.
+    comments: [
+      {
+        id: '',
+        avatar: '',
+        message: '',
+        name: ''
+      },
+    ]
   }
 }
