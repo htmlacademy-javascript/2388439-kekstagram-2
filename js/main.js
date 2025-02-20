@@ -15,6 +15,17 @@ const object {
 //У каждого комментария есть идентификатор — id — любое число. Идентификаторы не должны повторяться.
 // Поле avatar — это строка, значение которой формируется по правилу img/avatar-{{случайное число от 1 до 6}}.svg.
 
+// Массив с сылками на аватары
+
+let avatar = [
+  'img/avatar-1.svg',
+  'img/avatar-2.svg',
+  'img/avatar-3.svg',
+  'img/avatar-4.svg',
+  'img/avatar-5.svg',
+  'img/avatar-6.svg'
+]
+
 let DescriptionPublishedPhoto = function (){
   return {
     id: '',
