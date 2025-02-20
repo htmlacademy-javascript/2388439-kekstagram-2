@@ -14,3 +14,13 @@ const object {
 
 //У каждого комментария есть идентификатор — id — любое число. Идентификаторы не должны повторяться.
 // Поле avatar — это строка, значение которой формируется по правилу img/avatar-{{случайное число от 1 до 6}}.svg.
+
+let DescriptionPublishedPhoto = function (){
+  return {
+    id: '',
+    url: '',
+    description: '',
+    likes: '',
+    comments: ''
+  }
+}
