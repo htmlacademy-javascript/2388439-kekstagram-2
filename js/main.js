@@ -48,8 +48,6 @@ const nameAutors = [
   'Настасья'
 ];
 
-// Функция генерирующая случайное число из диапазона.
-
 const getRandomInteger = (a, b) => {
   const lower = Math.ceil(Math.min(a, b));
   const upper = Math.floor(Math.max(a, b));
@@ -63,7 +61,7 @@ const describePhoto = () => {
 
   const likes = [];
   for(let i = 15; i <= 200; i++){
-    likes.push(i);
+    likes.push(i);я
   }
 
   let quantityLikes = getRandomInteger(0, likes.length - 1);
