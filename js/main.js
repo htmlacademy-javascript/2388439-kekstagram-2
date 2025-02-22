@@ -53,15 +53,28 @@ const getRandomInteger = (a, b) => {
 };
 
 // Фунция создающая комментарии.
-const containsCommenData = () => {
+const containsCommentData = () => {
+    const avatarAutors = [];
+    const commentsId = [];
+    for(let i = 1; i <= nameAutors.length; i++){
+      avatarAutors.push(i);
+    }
+    for(let i = 1; i <= 1000; i++){
+      commentsId.push(i);
+    }
+
   const randomNameIndex = getRandomInteger(0, nameAutors.length - 1);
-  const randomAvatarIndex = getRandomInteger(0, nameAutors.length - 1);
+  const randomMessageIndex = getRandomInteger(0, comments.length - 1);
+  const randomCommentsId = getRandomInteger(0, commentsId.length - 1);
   return {
-    id:'',
+    id: randomCommentsId,
     name: nameAutors[randomNameIndex],
-    avatar:'',
-    message:''
+    avatar:`img/avatar-${avatarAutors[randomNameIndex]}.svg`,
+    message: comments[randomMessageIndex]
   };
 };
 
-containsCommenData();
+
+const generateComment = Array.from({length: 25}, containsCommentData);
+
+console.log(generateComment);
