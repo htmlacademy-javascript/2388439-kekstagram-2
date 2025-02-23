@@ -1,4 +1,3 @@
-// Нужно создать функцию для создания массива из 25 сгенерированных объектов.
 const nameAutors = [
   'Алёша Попович',
   'Илья Муромец',
@@ -16,6 +15,47 @@ const comments = [
   'Я поскользнулся на банановой кожуре и уронил фотоаппарат на кота и у меня получилась фотография лучше.',
   'Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!'
 ];
+
+const getRandomInteger = (a, b) => {
+  const lower = Math.ceil(Math.min(a, b));
+  const upper = Math.floor(Math.max(a, b));
+  const result = Math.random() * (upper - lower + 1) + lower;
+  return Math.floor(result);
+};
+
+// Фунция создающая комментарии.
+const containsCommentData = () => {
+
+  const avatarAutors = [];
+  for(let i = 1; i <= nameAutors.length; i++){
+    avatarAutors.push(i);
+  }
+
+  const randomNameIndex = getRandomInteger(0, nameAutors.length - 1);
+  const randomMessageIndex = getRandomInteger(0, comments.length - 1);
+
+  const commentsId = [];
+  for(let i = 1; i <= 1000; i++){
+    commentsId.push(i);
+  }
+  const usedIds = [];
+  const randomCommentsId = getRandomInteger(0, commentsId.length - 1);
+
+  while(usedIds.includes(randomCommentsId)){
+    usedIds.push(randomCommentsId);
+  }
+
+  return {
+    id: randomCommentsId,
+    name: nameAutors[randomNameIndex],
+    avatar:`img/avatar-${avatarAutors[randomNameIndex]}.svg`,
+    message: comments[randomMessageIndex]
+  };
+};
+
+const generateComment = Array.from({length: 25}, containsCommentData);
+
+console.table(generateComment);
 
 const descriptions = [
   'Пустой осенний пляж с прозрачной водой, жёлтыми и зелеными деревьями, вечернее время около 17:00. Ясное небо, но вдалеке дымка, обещающая пасмурную погоду.',
@@ -44,37 +84,3 @@ const descriptions = [
   'Сцена концерта группы «Эпидемия» в Санкт-Петербурге 10.09.2017 с ярким освещением и силуэтами людей.',
   'Белый внедорожник Land Rover Defender 110 расположен на затопленной дороге. Из воды, рядом с авто, высунул голову бегемот демонстрируя недовольство вмешательством внедорожника в его спокойствие.'
 ];
-
-const getRandomInteger = (a, b) => {
-  const lower = Math.ceil(Math.min(a, b));
-  const upper = Math.floor(Math.max(a, b));
-  const result = Math.random() * (upper - lower + 1) + lower;
-  return Math.floor(result);
-};
-
-// Фунция создающая комментарии.
-const containsCommentData = () => {
-    const avatarAutors = [];
-    const commentsId = [];
-    for(let i = 1; i <= nameAutors.length; i++){
-      avatarAutors.push(i);
-    }
-    for(let i = 1; i <= 1000; i++){
-      commentsId.push(i);
-    }
-
-  const randomNameIndex = getRandomInteger(0, nameAutors.length - 1);
-  const randomMessageIndex = getRandomInteger(0, comments.length - 1);
-  const randomCommentsId = getRandomInteger(0, commentsId.length - 1);
-  return {
-    id: randomCommentsId,
-    name: nameAutors[randomNameIndex],
-    avatar:`img/avatar-${avatarAutors[randomNameIndex]}.svg`,
-    message: comments[randomMessageIndex]
-  };
-};
-
-
-const generateComment = Array.from({length: 25}, containsCommentData);
-
-console.log(generateComment);
