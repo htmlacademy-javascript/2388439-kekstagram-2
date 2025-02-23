@@ -44,7 +44,8 @@ const descriptions = [
   'Белый внедорожник Land Rover Defender 110 расположен на затопленной дороге. Из воды, рядом с авто, высунул голову бегемот демонстрируя недовольство вмешательством внедорожника в его спокойствие.'
 ];
 
-//Функция генерирует случайные целочисленные значения
+//.................... Функция генерирует случайные целочисленные значения....................//
+
 const getRandomInteger = (a, b) => {
   const lower = Math.ceil(Math.min(a, b));
   const upper = Math.floor(Math.max(a, b));
@@ -52,12 +53,13 @@ const getRandomInteger = (a, b) => {
   return Math.floor(result);
 };
 
-// Функция обходит входной массив и передаёт значения в массив назначения.
+//.................... Функция обходит входной массив и передаёт значения в массив назначения.....................//
 
 // initialValue - входное значение.
-// cyclelLimit - условия остановки цикла.
+// cyclelLimit - условие остановки цикла.
 // collectedIndices - массив для передаваемых значений
-const retrieveIndices = function (initialValue ,cyclelLimit, collectedIndices) {
+
+const retrieveIndices = (initialValue ,cyclelLimit, collectedIndices) => {
   collectedIndices = [];
   for(let i = initialValue; i <= cyclelLimit; i++){
     collectedIndices.push(i);
@@ -65,11 +67,12 @@ const retrieveIndices = function (initialValue ,cyclelLimit, collectedIndices) {
   return collectedIndices;
 };
 
-// Функция создаёт массив из диапазона переваемых чисел.
+//....................Функция создаёт массив из диапазона переваемых чисел.....................//
 
 // startValue - начальное значение диапазона.
 // endValue - конечное значение диапазона.
-const createRangeOfNumbers = function (startValue ,endValue) {
+
+const createRangeOfNumbers = (startValue ,endValue) => {
   const desiredRange = [];
   for(let i = startValue; i <= endValue; i++){
     desiredRange.push(i);
@@ -82,6 +85,7 @@ const containsCommentData = () => {
 
   const avatarAutors = createRangeOfNumbers(1,nameAutors.length);
   retrieveIndices(1, nameAutors.length, nameAutors);
+
   const commentsId = createRangeOfNumbers(1, 1000);
 
   const usedIds = [];
@@ -101,43 +105,36 @@ const containsCommentData = () => {
   };
 };
 
-const numberOfgenerations = descriptions.length;
-const generateComment = Array.from({length: numberOfgenerations}, containsCommentData);
-
-console.table(generateComment);
+containsCommentData();
 
 //------------------------------------------------------------------------//
 
-const generatePhotos = function() {
+const createPhotoAlbum = function() {
 
-  const descriptionsPhoto = [];
-  for(let i = 1; i <= descriptions.length; i++){
-    descriptionsPhoto.push(i);
-  }
+  retrieveIndices(1, descriptions.length, descriptions);
+  const descriptionsPhoto = createRangeOfNumbers(1,descriptions.length);
 
-  const likeRange = [];
-  for(let i = 15; i <= 200; i++){
-    likeRange.push(i);
-  }
-
-  const randomLikes = getRandomInteger(0, likeRange.length - 1);
+  const qantityComments = getRandomInteger(0, 30);
+  const likeRange = createRangeOfNumbers(15, 200);
+  const randomLikes = getRandomInteger(15, likeRange.length - 1);
   const randomDescriptionsPhoto = getRandomInteger(0, descriptionsPhoto.length - 1);
+  const generateComment = Array.from({length: qantityComments}, containsCommentData);
+
+  const photoId = descriptionsPhoto[randomDescriptionsPhoto];
 
   return {
-    id:descriptionsPhoto[randomDescriptionsPhoto],
+    id: photoId,
     url:`photos/${descriptionsPhoto[randomDescriptionsPhoto]}.jpg`,
     description: descriptions[randomDescriptionsPhoto],
     likes: likeRange[randomLikes],
-    comments:''
+    comments: generateComment
   };
+
 };
 
-generatePhotos();
+retrieveIndices(0 ,descriptions.length, descriptions);
+const numberOfgenerations = createRangeOfNumbers(1,descriptions.length);
 
-// for(let i = 1; i <= nameAutors.length; i++){
-//   avatarAutors.push(i);
-// }
+const photoAlbum = Array.from({length: numberOfgenerations.length}, createPhotoAlbum);
 
-// for(let i = 1; i <= 1000; i++){
-//   commentsId.push(i);
-// }
+console.table(photoAlbum);
