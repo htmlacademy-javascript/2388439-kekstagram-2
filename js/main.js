@@ -83,9 +83,13 @@ const descriptions = [
   'Белый внедорожник Land Rover Defender 110 расположен на затопленной дороге. Из воды, рядом с авто, высунул голову бегемот демонстрируя недовольство вмешательством внедорожника в его спокойствие.'
 ];
 
-
-
 const generatePhotos = function() {
+
+  const descriptionsPhoto = [];
+  for(let i = 1; i <= descriptions.length; i++){
+    descriptionsPhoto.push(i);
+  }
+
   return {
     id:'',
     url:'',
