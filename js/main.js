@@ -27,8 +27,8 @@ const descriptions = [
   'На столе стоят две прозрачные кружки с насыщенным красным соком из винограда. Рядом лежат две лозы с крупными, сочными ягодами.',
   'Тёплый пляж, прозрачная голубая вода. Над морем летит двухмоторный самолёт. В воде отдыхают люди. Молодая девушка в купальнике стоит спиной. Поднятыми руками, приветствует самолёт.',
   'Выкатная сетчатая полка для обуви под белым шкафом с несколькими парами обуви.',
-  'На изображении показан пляж с деревянным забором и песчаной дорожкой, ведущей к морю. Высокое чистое небо с небольшим количеством облаков.',
-  'На изображении показан белый спортивный автомобиль Audi RS7 с зелеными фарами.',
+  'На фото представлен пляж с деревянным забором и песчаной дорожкой, ведущей к морю. Высокое чистое небо с небольшим количеством облаков.',
+  'На фото представлен белый спортивный автомобиль Audi RS7 с зелеными фарами.',
   'Свежая сёмга с золотистой корочкой и свежие овощи — сельдерей, сладкий перец и морковь. Специи подчеркивают вкус блюда.',
   'Рыжий котик с жёлтой ленточкой на шее в костюме суши, лежит на подушке из риса, накрыт желтым одеяльцем и обвязан широким пояском, напоминающим полоску нори.',
   'На белом диване уютно расположились чьи-то ноги в серых музыкальных тапочках-роботах с красными элементами. Тапочки выглядят современно. Рядом, на деревянной тумбе, лежат две книги, горшок с цветком и торшер с мягким светом.',
@@ -44,6 +44,7 @@ const descriptions = [
   'Белый внедорожник Land Rover Defender 110 расположен на затопленной дороге. Из воды, рядом с авто, высунул голову бегемот демонстрируя недовольство вмешательством внедорожника в его спокойствие.'
 ];
 
+//Функция генерирует случайные целочисленные значения
 const getRandomInteger = (a, b) => {
   const lower = Math.ceil(Math.min(a, b));
   const upper = Math.floor(Math.max(a, b));
@@ -51,27 +52,46 @@ const getRandomInteger = (a, b) => {
   return Math.floor(result);
 };
 
-// Фунция создающая комментарии.
+// Функция обходит входной массив и передаёт значения в массив назначения.
+
+// initialValue - входное значение.
+// cyclelLimit - условия остановки цикла.
+// collectedIndices - массив для передаваемых значений
+const retrieveIndices = function (initialValue ,cyclelLimit, collectedIndices) {
+  collectedIndices = [];
+  for(let i = initialValue; i <= cyclelLimit; i++){
+    collectedIndices.push(i);
+  }
+  return collectedIndices;
+};
+
+// Функция создаёт массив из диапазона переваемых чисел.
+
+// startValue - начальное значение диапазона.
+// endValue - конечное значение диапазона.
+const createRangeOfNumbers = function (startValue ,endValue) {
+  const desiredRange = [];
+  for(let i = startValue; i <= endValue; i++){
+    desiredRange.push(i);
+  }
+  return desiredRange;
+};
+
+//.................... Фунция создающая комментарии.....................//
 const containsCommentData = () => {
 
-  const avatarAutors = [];
-  for(let i = 1; i <= nameAutors.length; i++){
-    avatarAutors.push(i);
+  const avatarAutors = createRangeOfNumbers(1,nameAutors.length);
+  retrieveIndices(1, nameAutors.length, nameAutors);
+  const commentsId = createRangeOfNumbers(1, 1000);
+
+  const usedIds = [];
+  const randomCommentsId = getRandomInteger(0, commentsId.length - 1);
+  while(usedIds.includes(randomCommentsId)){
+    usedIds.push(randomCommentsId);
   }
 
   const randomNameIndex = getRandomInteger(0, nameAutors.length - 1);
   const randomMessageIndex = getRandomInteger(0, comments.length - 1);
-
-  const commentsId = [];
-  for(let i = 1; i <= 1000; i++){
-    commentsId.push(i);
-  }
-  const usedIds = [];
-  const randomCommentsId = getRandomInteger(0, commentsId.length - 1);
-
-  while(usedIds.includes(randomCommentsId)){
-    usedIds.push(randomCommentsId);
-  }
 
   return {
     id: randomCommentsId,
@@ -81,9 +101,12 @@ const containsCommentData = () => {
   };
 };
 
-const generateComment = Array.from({length: 25}, containsCommentData);
+const numberOfgenerations = descriptions.length;
+const generateComment = Array.from({length: numberOfgenerations}, containsCommentData);
 
-////////////////////////////----------------------------------------------//////////////////////////////////////////
+console.table(generateComment);
+
+//------------------------------------------------------------------------//
 
 const generatePhotos = function() {
 
@@ -92,15 +115,29 @@ const generatePhotos = function() {
     descriptionsPhoto.push(i);
   }
 
+  const likeRange = [];
+  for(let i = 15; i <= 200; i++){
+    likeRange.push(i);
+  }
+
+  const randomLikes = getRandomInteger(0, likeRange.length - 1);
   const randomDescriptionsPhoto = getRandomInteger(0, descriptionsPhoto.length - 1);
 
   return {
-    id:'',
+    id:descriptionsPhoto[randomDescriptionsPhoto],
     url:`photos/${descriptionsPhoto[randomDescriptionsPhoto]}.jpg`,
     description: descriptions[randomDescriptionsPhoto],
-    likes:'',
+    likes: likeRange[randomLikes],
     comments:''
   };
 };
 
 generatePhotos();
+
+// for(let i = 1; i <= nameAutors.length; i++){
+//   avatarAutors.push(i);
+// }
+
+// for(let i = 1; i <= 1000; i++){
+//   commentsId.push(i);
+// }
