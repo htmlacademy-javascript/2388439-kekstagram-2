@@ -44,6 +44,16 @@ const descriptions = [
   'Белый внедорожник Land Rover Defender 110 расположен на затопленной дороге. Из воды, рядом с авто, высунул голову бегемот демонстрируя недовольство вмешательством внедорожника в его спокойствие.'
 ];
 
+const rangeComments = { // Диапазон комментариев к каждой фотке.
+  min: 0,
+  max: 30
+};
+
+const rangeLikes = { // Диапазон лайков к каждой фотке.
+  min: 15,
+  max: 200
+};
+
 //.................... Функция генерирует случайные целочисленные значения....................//
 
 const getRandomInteger = (a, b) => {
@@ -108,33 +118,22 @@ const containsCommentData = () => {
 containsCommentData();
 
 //------------------------------------------------------------------------//
+const createPhoto = function(photoId) {
 
-const createPhotoAlbum = function() {
+  const qantityComments = getRandomInteger(rangeComments.min, rangeComments.max); // Диапазон комментариев.
+  const likeRange = createRangeOfNumbers(rangeLikes.min, rangeLikes.max); // Колличество лайков для каждой фотки. Случайное число от 15 до 200
+  const randomLikes = getRandomInteger(rangeLikes.min, likeRange.length - 1); // Генерация случайного колличества лайков
+  const generateComment = Array.from({length: qantityComments}, containsCommentData); // Создаёт случайное количество комментариев из выбранного диапазона.
 
-  retrieveIndices(1, descriptions.length, descriptions);
-  const descriptionsPhoto = createRangeOfNumbers(1,descriptions.length);
-
-  const qantityComments = getRandomInteger(0, 30);
-  const likeRange = createRangeOfNumbers(15, 200);
-  const randomLikes = getRandomInteger(15, likeRange.length - 1);
-  const randomDescriptionsPhoto = getRandomInteger(0, descriptionsPhoto.length - 1);
-  const generateComment = Array.from({length: qantityComments}, containsCommentData);
-
-  const photoId = descriptionsPhoto[randomDescriptionsPhoto];
-
-  return {
+  const generatedPhotoData = {
     id: photoId,
-    url:`photos/${descriptionsPhoto[randomDescriptionsPhoto]}.jpg`,
-    description: descriptions[randomDescriptionsPhoto],
+    url:`photos/${photoId}.jpg`,
+    description: descriptions[photoId - 1],
     likes: likeRange[randomLikes],
     comments: generateComment
   };
-
+  return generatedPhotoData;
 };
 
-retrieveIndices(0 ,descriptions.length, descriptions);
-const numberOfgenerations = createRangeOfNumbers(1,descriptions.length);
-
-const photoAlbum = Array.from({length: numberOfgenerations.length}, createPhotoAlbum);
-
-console.table(photoAlbum);
+const album = Array.from({ length: descriptions.length }, (_, index) => createPhoto(index + 1));
+console.table(album);
