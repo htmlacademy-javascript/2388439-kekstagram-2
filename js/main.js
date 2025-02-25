@@ -1,4 +1,4 @@
-const nameAutors = [
+const NAME_AUTHORS = [
   'Алёша Попович',
   'Илья Муромец',
   'Добрыня Никитич',
@@ -7,7 +7,7 @@ const nameAutors = [
   'Настасья'
 ];
 
-const comments = [
+const COMMENTS = [
   'Всё отлично!',
   'В целом всё неплохо. Но не всё.',
   'Когда вы делаете фотографию, хорошо бы убирать палец из кадра. В конце концов это просто непрофессионально.',
@@ -16,7 +16,7 @@ const comments = [
   'Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!'
 ];
 
-const descriptions = [
+const DESCRIPTIONS = [
   'Пустой осенний пляж с прозрачной водой, жёлтыми и зелеными деревьями, вечернее время около 17:00. Ясное небо, но вдалеке дымка, обещающая пасмурную погоду.',
   'На зелёной поляне стоит указатель из двух обвитых канатом деревянных столбов с белой надписью Go to the beach и стрелками вверх. Слева от указателя слегка заросшая тропинка.',
   'Песчаный пляж окружён густой зеленью, высокое голубое небо усыпано облаками. Прозрачное голубое море омывает невысокие скалы.',
@@ -44,14 +44,19 @@ const descriptions = [
   'Белый внедорожник Land Rover Defender 110 расположен на затопленной дороге. Из воды, рядом с авто, высунул голову бегемот демонстрируя недовольство вмешательством внедорожника в его спокойствие.'
 ];
 
-const rangeComments = { // Диапазон комментариев к каждой фотке.
-  min: 0,
-  max: 30
+const RANGE_COMMENTS = { // Диапазон комментариев к каждой фотке.
+  MIN: 0,
+  MAX: 30
 };
 
-const rangeLikes = { // Диапазон лайков к каждой фотке.
-  min: 15,
-  max: 200
+const RANGE_LIKES = { // Диапазон лайков к каждой фотке.
+  MIN: 15,
+  MAX: 200
+};
+
+const RANGE_COMMENTS_ID = { // Диапазон идентификаоров для комментариев.(По условию любое число).
+  MIN: 1,
+  MAX: 1000
 };
 
 //.................... Функция генерирует случайные целочисленные значения....................//
@@ -91,12 +96,11 @@ const createRangeOfNumbers = (startValue ,endValue) => {
 };
 
 //.................... Фунция создающая комментарии.....................//
-const containsCommentData = () => {
+const createComment = () => {
 
-  const avatarAutors = createRangeOfNumbers(1,nameAutors.length);
-  retrieveIndices(1, nameAutors.length, nameAutors);
-
-  const commentsId = createRangeOfNumbers(1, 1000);
+  const avatarAuthors = createRangeOfNumbers(1,NAME_AUTHORS.length);
+  retrieveIndices(1, NAME_AUTHORS.length, NAME_AUTHORS);
+  const commentsId = createRangeOfNumbers(RANGE_COMMENTS_ID.MIN, RANGE_COMMENTS_ID.MAX);
 
   const usedIds = [];
   const randomCommentsId = getRandomInteger(0, commentsId.length - 1);
@@ -104,36 +108,36 @@ const containsCommentData = () => {
     usedIds.push(randomCommentsId);
   }
 
-  const randomNameIndex = getRandomInteger(0, nameAutors.length - 1);
-  const randomMessageIndex = getRandomInteger(0, comments.length - 1);
+  const randomNameIndex = getRandomInteger(0, NAME_AUTHORS.length - 1);
+  const randomMessageIndex = getRandomInteger(0, COMMENTS.length - 1);
 
   return {
     id: randomCommentsId,
-    name: nameAutors[randomNameIndex],
-    avatar:`img/avatar-${avatarAutors[randomNameIndex]}.svg`,
-    message: comments[randomMessageIndex]
+    name: NAME_AUTHORS[randomNameIndex],
+    avatar:`img/avatar-${avatarAuthors[randomNameIndex]}.svg`,
+    message: COMMENTS[randomMessageIndex]
   };
 };
 
-containsCommentData();
+createComment();
 
 //------------------------------------------------------------------------//
 const createPhoto = function(photoId) {
 
-  const qantityComments = getRandomInteger(rangeComments.min, rangeComments.max); // Диапазон комментариев.
-  const likeRange = createRangeOfNumbers(rangeLikes.min, rangeLikes.max); // Колличество лайков для каждой фотки. Случайное число от 15 до 200
-  const randomLikes = getRandomInteger(rangeLikes.min, likeRange.length - 1); // Генерация случайного колличества лайков
-  const generateComment = Array.from({length: qantityComments}, containsCommentData); // Создаёт случайное количество комментариев из выбранного диапазона.
+  const qantityComments = getRandomInteger(RANGE_COMMENTS.MIN, RANGE_COMMENTS.MAX); // Диапазон комментариев.
+  const likeRange = createRangeOfNumbers(RANGE_LIKES.MIN, RANGE_LIKES.MAX); // Количество лайков для каждой фотки. Случайное число от 15 до 200
+  const randomLikes = getRandomInteger(RANGE_LIKES.MIN, likeRange.length - 1); // Генерация случайного количества лайков
+  const generateComment = Array.from({length: qantityComments}, createComment); // Создаёт случайное количество комментариев из выбранного диапазона.
 
   const generatedPhotoData = {
     id: photoId,
     url:`photos/${photoId}.jpg`,
-    description: descriptions[photoId - 1],
+    description: DESCRIPTIONS[photoId - 1],
     likes: likeRange[randomLikes],
     comments: generateComment
   };
   return generatedPhotoData;
 };
 
-const album = Array.from({ length: descriptions.length }, (_, index) => createPhoto(index + 1));
+const album = Array.from({ length: DESCRIPTIONS.length }, (_, index) => createPhoto(index + 1));
 console.table(album);
