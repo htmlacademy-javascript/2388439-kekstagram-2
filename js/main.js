@@ -124,10 +124,10 @@ createComment();
 //------------------------------------------------------------------------//
 const createPhoto = function(photoId) {
 
-  const qantityComments = getRandomInteger(RANGE_COMMENTS.MIN, RANGE_COMMENTS.MAX); // Диапазон комментариев.
+  const quantityComments = getRandomInteger(RANGE_COMMENTS.MIN, RANGE_COMMENTS.MAX); // Диапазон комментариев.
   const likeRange = createRangeOfNumbers(RANGE_LIKES.MIN, RANGE_LIKES.MAX); // Количество лайков для каждой фотки. Случайное число от 15 до 200
   const randomLikes = getRandomInteger(RANGE_LIKES.MIN, likeRange.length - 1); // Генерация случайного количества лайков
-  const generateComment = Array.from({length: qantityComments}, createComment); // Создаёт случайное количество комментариев из выбранного диапазона.
+  const generateComment = Array.from({length: quantityComments}, createComment); // Создаёт случайное количество комментариев из выбранного диапазона.
 
   const generatedPhotoData = {
     id: photoId,
