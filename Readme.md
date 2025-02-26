@@ -1,7 +1,7 @@
 # Личный проект «Кекстаграм»
 
 * Студент: [Вадим Пинягин](https://up.htmlacademy.ru/javascript-individual/2/user/2388439).
-* Наставник: `Неизвестно`.
+* Наставник: [Анна Лисененкова](https://htmlacademy.ru/profile/ankhena).
 
 ---
 
