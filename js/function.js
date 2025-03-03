@@ -20,3 +20,4 @@ function checksStringPalindrome(string){
 }
 
 checksStringPalindrome('Лёша на полке клопа нашёл');
+//Создание ветки
