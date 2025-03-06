@@ -1,3 +1,4 @@
+// Модуль с данными. Которые в будущем будут загружаться с сервера.
 const NAME_AUTHORS = [
   'Алёша Попович',
   'Илья Муромец',
@@ -58,3 +59,4 @@ const RANGE_COMMENTS_ID = { // Диапазон идентификаторов �
   MIN: 1,
   MAX: 1000
 };
+export {NAME_AUTHORS, COMMENTS, DESCRIPTIONS, RANGE_COMMENTS, RANGE_LIKES, RANGE_COMMENTS_ID};

@@ -1,2 +1,2 @@
-import './data';
-import './utils';
+// Точка входа.
+import './upload';

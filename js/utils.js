@@ -1,3 +1,5 @@
+// Вспомогательные функции.
+
 //.................... Функция генерирует случайные целочисленные значения....................//
 
 const getRandomInteger = (a, b) => {
@@ -7,7 +9,7 @@ const getRandomInteger = (a, b) => {
   return Math.floor(result);
 };
 
-//.................... Функция обходит входной массив и передаёт значения в массив назначения.....................//
+//.................... Функция обходит входной массив и передаёт значения в массив назначения.........//
 
 // initialValue - входное значение.
 // cyclelLimit - условие остановки цикла.
@@ -33,3 +35,4 @@ const createRangeOfNumbers = (startValue ,endValue) => {
   }
   return desiredRange;
 };
+export{getRandomInteger, retrieveIndices, createRangeOfNumbers};
