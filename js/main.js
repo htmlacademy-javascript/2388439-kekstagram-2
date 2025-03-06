@@ -140,4 +140,3 @@ const createPhoto = function(photoId) {
 };
 
 const album = Array.from({ length: DESCRIPTIONS.length }, (_, index) => createPhoto(index + 1));
-console.table(album);
