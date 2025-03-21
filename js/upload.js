@@ -21,5 +21,4 @@ const createPhoto = function(photoId) {
   return generatedPhotoData;
 };
 
-const album = Array.from({ length: DESCRIPTIONS.length }, (_, index) => createPhoto(index + 1));
-console.table(album);
+export const album = Array.from({ length: DESCRIPTIONS.length }, (_, index) => createPhoto(index + 1));
