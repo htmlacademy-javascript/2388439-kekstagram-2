@@ -1,3 +1,3 @@
 // Точка входа.
-import 'upload';
-import 'thumbnail_rendering';
+import './data';
+import './thumbnail_rendering';
