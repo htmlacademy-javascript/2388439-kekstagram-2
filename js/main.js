@@ -1,3 +1,3 @@
-import './data.js';
+import './upload.js';
 import './thumbnail_rendering.js';
 

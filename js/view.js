@@ -1,7 +1,7 @@
 // 4. Просмотр загруженных изображений
 
-import {NAME_AUTHORS, COMMENTS, RANGE_COMMENTS_ID} from'./data';
-import {getRandomInteger, retrieveIndices, createRangeOfNumbers} from'./utils';
+import {NAME_AUTHORS, COMMENTS, RANGE_COMMENTS_ID} from'./data.js';
+import {getRandomInteger, retrieveIndices, createRangeOfNumbers} from'./utils.js';
 
 //.................... Фунция создающая комментарии.....................//
 const createComment = () => {
