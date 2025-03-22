@@ -1,6 +1,6 @@
 // Точка входа.
-import './data';
-import './thumbnail_rendering';
-import '/js/upload';
+import './upload.js';
 import './utils';
 import './view';
+import './data';
+import './thumbnail_rendering';
