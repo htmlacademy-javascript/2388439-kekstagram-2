@@ -1,8 +1,8 @@
 // 1. Загрузка нового изображения на сайт и заполнение информации о нём
 
-import {DESCRIPTIONS, RANGE_COMMENTS, RANGE_LIKES} from'./data';
-import {getRandomInteger, createRangeOfNumbers} from'./utils';
-import {createComment} from './view';
+import {DESCRIPTIONS, RANGE_COMMENTS, RANGE_LIKES} from'./data.js';
+import {getRandomInteger, createRangeOfNumbers} from'./utils.js';
+import {createComment} from './view.js';
 
 const createPhoto = function(photoId) {
 
@@ -21,5 +21,4 @@ const createPhoto = function(photoId) {
   return generatedPhotoData;
 };
 
-const album = Array.from({ length: DESCRIPTIONS.length }, (_, index) => createPhoto(index + 1));
-console.table(album);
+export const album = Array.from({ length: DESCRIPTIONS.length }, (_, index) => createPhoto(index + 1));
