@@ -1,15 +1,13 @@
-// 1. Загрузка нового изображения на сайт и заполнение информации о нём
-
 import {DESCRIPTIONS, RANGE_COMMENTS, RANGE_LIKES} from'./data.js';
 import {getRandomInteger, createRangeOfNumbers} from'./utils.js';
 import {createComment} from './view.js';
 
 const createPhoto = function(photoId) {
 
-  const quantityComments = getRandomInteger(RANGE_COMMENTS.MIN, RANGE_COMMENTS.MAX); // Диапазон комментариев.
-  const likeRange = createRangeOfNumbers(RANGE_LIKES.MIN, RANGE_LIKES.MAX); // Количество лайков для каждой фотки. Случайное число от 15 до 200
-  const randomLikes = getRandomInteger(RANGE_LIKES.MIN, likeRange.length - 1); // Генерация случайного количества лайков
-  const generateComment = Array.from({length: quantityComments}, createComment); // Создаёт случайное количество комментариев из выбранного диапазона.
+  const quantityComments = getRandomInteger(RANGE_COMMENTS.MIN, RANGE_COMMENTS.MAX);
+  const likeRange = createRangeOfNumbers(RANGE_LIKES.MIN, RANGE_LIKES.MAX);
+  const randomLikes = getRandomInteger(RANGE_LIKES.MIN, likeRange.length - 1);
+  const generateComment = Array.from({length: quantityComments}, createComment);
 
   const generatedPhotoData = {
     id: photoId,
