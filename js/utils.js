@@ -20,4 +20,7 @@ const createRangeOfNumbers = (startValue ,endValue) => {
   }
   return desiredRange;
 };
-export{getRandomInteger, retrieveIndices, createRangeOfNumbers};
+
+const isEscapeKey = (evt) => evt.key === 'Escape';
+
+export{getRandomInteger, retrieveIndices, createRangeOfNumbers, isEscapeKey};
