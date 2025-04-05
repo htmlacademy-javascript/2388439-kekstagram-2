@@ -1,31 +1,58 @@
-import {isEscapeKey} from './utils.js';
-import {container} from './thumbnail_rendering.js'; // Экспортированная переменная с общим узлом <section class="pictures  container">
-const bigPicture = document.querySelector('.big-picture'); //Окно с большой фоткой.
-const cross = bigPicture.querySelector('.cancel'); //Крестик закрытия большой фотки.
+import {album} from './upload.js';
 
-//------------------------------------------------------------------//
+const bigPictureNode = document.querySelector('.big-picture'); // Узел со всеми данными о большом изображении
+const bigPictureImgNode = bigPictureNode.querySelector('.big-picture__img').querySelector('img'); // Контейнер с изображением
+const likesCountNode = bigPictureNode.querySelector('.likes-count');
+const socialCommentsNode = bigPictureNode.querySelector('.social__comments');
+const socialCommentsTempleate = socialCommentsNode.querySelector('.social__comment');
+const commentsCaptionNode = bigPictureNode.querySelector('.social__caption');
+const commentsCountMode = bigPictureNode.querySelector('.social__comment-count');
+const commentLoaderNode = bigPictureNode.querySelector('.social__comments-loader');
+const bigPictureCancelNode = bigPictureNode.querySelector('.cancel');
 
-const onDocumentKeydown = (evt) => {
-  if (isEscapeKey(evt)) {
-    evt.preventDefault();
-    closeModalWindow();
+const onBigPictureCancelClick = () => {
+  closeBigPicture();
+};
+
+const onEscKeyDown = (evt) => {
+  if (evt.key === 'Escape') {
+    closeBigPicture();
   }
 };
 
-const openModalWindow = () => {
-  bigPicture.classList.remove('hidden');
-  document.addEventListener('keydown', onDocumentKeydown);
-};
-const closeModalWindow = () => {
-  bigPicture.classList.add('hidden');
-  document.addEventListener('keydown', onDocumentKeydown);
+const closeBigPicture = () => {
+  bigPictureNode.classList.add('hidden');
+  bigPictureCancelNode.removeEventListener('click', onBigPictureCancelClick);
+  document.removeEventListener('keydown', onEscKeyDown);
 };
 
-container.addEventListener('click', () => {
-  openModalWindow();
-});
+const openBigPicture = (pictureId) => {
+  const currentPhoto = album.find((photo) => photo.id === Number(pictureId));
+  const socialCommentsFragment = document.createDocumentFragment();
 
-cross.addEventListener('click', () => {
-  bigPicture.classList.add('hidden');
-});
+  bigPictureImgNode.src = currentPhoto.url;
+  likesCountNode.textContent = currentPhoto.likes;
+  socialCommentsNode.innerHTML = '';
+
+  currentPhoto.comments.forEach((comment) => {
+    const socialCommentNode = socialCommentsTempleate.cloneNode(true);
+    socialCommentNode.querySelector('.social__picture').src = comment.avatar;
+    socialCommentNode.querySelector('.social__picture').alt = comment.name;
+    socialCommentNode.querySelector('.social__text').textContent = comment.message;
+
+    socialCommentsFragment.appendChild(socialCommentNode);
+  });
+
+  socialCommentsNode.appendChild(socialCommentsFragment);
+  commentsCaptionNode.textContent = currentPhoto.description;
+  commentsCountMode.classList.add('hidden');
+  commentLoaderNode.classList.add('hidden');
+
+  bigPictureNode.classList.remove('hidden');
+  bigPictureCancelNode.addEventListener('click', onBigPictureCancelClick);
+  document.body.classList.add('modal-open');
+  document.removeEventListener('keydown', onEscKeyDown);
+};
+
+export{openBigPicture};
 
