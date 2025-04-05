@@ -1,5 +1,5 @@
 import {isEscapeKey} from './utils.js';
-const thumbnailPicture = document.querySelector('.picture'); //Миниатюра фотки.
+import {container} from './thumbnail_rendering.js';
 const bigPicture = document.querySelector('.big-picture'); //Окно с большой фоткой.
 const cross = bigPicture.querySelector('.cancel'); //Крестик закрытия большой фотки.
 
@@ -21,7 +21,7 @@ const closeModalWindow = () => {
   document.addEventListener('keydown', onDocumentKeydown);
 };
 
-thumbnailPicture.addEventListener('click', () => {
+container.addEventListener('click', () => {
   openModalWindow();
 });
 
