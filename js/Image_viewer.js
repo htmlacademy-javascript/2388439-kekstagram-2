@@ -1,7 +1,7 @@
 import {album} from './upload.js';
 
-const bigPictureNode = document.querySelector('.big-picture'); // Узел со всеми данными о большом изображении
-const bigPictureImgNode = bigPictureNode.querySelector('.big-picture__img').querySelector('img'); // Контейнер с изображением
+const bigPictureNode = document.querySelector('.big-picture');
+const bigPictureImgNode = bigPictureNode.querySelector('.big-picture__img').querySelector('img');
 const likesCountNode = bigPictureNode.querySelector('.likes-count');
 const socialCommentsNode = bigPictureNode.querySelector('.social__comments');
 const socialCommentsTempleate = socialCommentsNode.querySelector('.social__comment');
@@ -9,22 +9,6 @@ const commentsCaptionNode = bigPictureNode.querySelector('.social__caption');
 const commentsCountMode = bigPictureNode.querySelector('.social__comment-count');
 const commentLoaderNode = bigPictureNode.querySelector('.social__comments-loader');
 const bigPictureCancelNode = bigPictureNode.querySelector('.cancel');
-
-const onBigPictureCancelClick = () => {
-  closeBigPicture();
-};
-
-const onEscKeyDown = (evt) => {
-  if (evt.key === 'Escape') {
-    closeBigPicture();
-  }
-};
-
-const closeBigPicture = () => {
-  bigPictureNode.classList.add('hidden');
-  bigPictureCancelNode.removeEventListener('click', onBigPictureCancelClick);
-  document.removeEventListener('keydown', onEscKeyDown);
-};
 
 const openBigPicture = (pictureId) => {
   const currentPhoto = album.find((photo) => photo.id === Number(pictureId));
@@ -55,4 +39,21 @@ const openBigPicture = (pictureId) => {
 };
 
 export{openBigPicture};
+
+const closeBigPicture = () => {
+  bigPictureNode.classList.add('hidden');
+  bigPictureCancelNode.removeEventListener('click', onBigPictureCancelClick);
+  document.removeEventListener('keydown', onEscKeyDown);
+};
+
+const onEscKeyDown = (evt) => {
+  if (evt.key === 'Escape') {
+    closeBigPicture();
+  }
+};
+
+const onBigPictureCancelClick = () => {
+  closeBigPicture();
+};
+
 
