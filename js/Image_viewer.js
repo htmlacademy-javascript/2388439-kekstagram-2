@@ -10,6 +10,23 @@ const commentsCountMode = bigPictureNode.querySelector('.social__comment-count')
 const commentLoaderNode = bigPictureNode.querySelector('.social__comments-loader');
 const bigPictureCancelNode = bigPictureNode.querySelector('.cancel');
 
+function closeBigPicture() {
+  bigPictureNode.classList.add('hidden');
+  bigPictureCancelNode.removeEventListener('click', onBigPictureCancelClick);
+  document.removeEventListener('keydown', onEscKeyDown);
+}
+
+function onEscKeyDown(evt){
+  if (evt.key === 'Escape') {
+    closeBigPicture();
+  }
+}
+
+function onBigPictureCancelClick() {
+  closeBigPicture();
+}
+
+
 const openBigPicture = (pictureId) => {
   const currentPhoto = album.find((photo) => photo.id === Number(pictureId));
   const socialCommentsFragment = document.createDocumentFragment();
@@ -39,21 +56,3 @@ const openBigPicture = (pictureId) => {
 };
 
 export{openBigPicture};
-
-const closeBigPicture = () => {
-  bigPictureNode.classList.add('hidden');
-  bigPictureCancelNode.removeEventListener('click', onBigPictureCancelClick);
-  document.removeEventListener('keydown', onEscKeyDown);
-};
-
-const onEscKeyDown = (evt) => {
-  if (evt.key === 'Escape') {
-    closeBigPicture();
-  }
-};
-
-const onBigPictureCancelClick = () => {
-  closeBigPicture();
-};
-
-
