@@ -26,7 +26,7 @@ function onBigPictureCancelClick () {
 const closeBigPicture = () => {
   bigPictureNode.classList.add('hidden');
   bigPictureCancelNode.removeEventListener('click', onBigPictureCancelClick);
-  document.removeEventListener('keydown', onEscKeyDown());
+  document.removeEventListener('keydown', onEscKeyDown);
 };
 
 const openBigPicture = (pictureId) => {
@@ -55,7 +55,7 @@ const openBigPicture = (pictureId) => {
   bigPictureNode.classList.remove('hidden');
   bigPictureCancelNode.addEventListener('click', onBigPictureCancelClick);
   document.body.classList.add('modal-open');
-  document.removeEventListener('keydown', onEscKeyDown());
+  document.addEventListener('keydown', onEscKeyDown);
 };
 
 export{openBigPicture};
