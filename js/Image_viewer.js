@@ -10,22 +10,24 @@ const commentsCountMode = bigPictureNode.querySelector('.social__comment-count')
 const commentLoaderNode = bigPictureNode.querySelector('.social__comments-loader');
 const bigPictureCancelNode = bigPictureNode.querySelector('.cancel');
 
-function closeBigPicture() {
+function onEscKeyDown () {
+  document.addEventListener('keydown', (evt) => {
+    if (evt.key === 'Escape') {
+      evt.preventDefault();
+      bigPictureNode.classList.add('hidden');
+    }
+  });
+}
+
+const closeBigPicture = () => {
   bigPictureNode.classList.add('hidden');
   bigPictureCancelNode.removeEventListener('click', onBigPictureCancelClick);
-  document.removeEventListener('keydown', onEscKeyDown);
-}
+  document.removeEventListener('keydown', onEscKeyDown());
+};
 
-function onEscKeyDown(evt){
-  if (evt.key === 'Escape') {
-    closeBigPicture();
-  }
-}
-
-function onBigPictureCancelClick() {
+function onBigPictureCancelClick () {
   closeBigPicture();
 }
-
 
 const openBigPicture = (pictureId) => {
   const currentPhoto = album.find((photo) => photo.id === Number(pictureId));
@@ -52,7 +54,7 @@ const openBigPicture = (pictureId) => {
   bigPictureNode.classList.remove('hidden');
   bigPictureCancelNode.addEventListener('click', onBigPictureCancelClick);
   document.body.classList.add('modal-open');
-  document.removeEventListener('keydown', onEscKeyDown);
+  document.removeEventListener('keydown', onEscKeyDown());
 };
 
 export{openBigPicture};
