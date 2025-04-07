@@ -10,13 +10,17 @@ const commentsCountMode = bigPictureNode.querySelector('.social__comment-count')
 const commentLoaderNode = bigPictureNode.querySelector('.social__comments-loader');
 const bigPictureCancelNode = bigPictureNode.querySelector('.cancel');
 
-function onEscKeyDown () {
+function onEscKeyDown() {
   document.addEventListener('keydown', (evt) => {
     if (evt.key === 'Escape') {
       evt.preventDefault();
-      bigPictureNode.classList.add('hidden');
+      closeBigPicture();
     }
   });
+}
+
+function onBigPictureCancelClick () {
+  closeBigPicture();
 }
 
 const closeBigPicture = () => {
@@ -24,10 +28,6 @@ const closeBigPicture = () => {
   bigPictureCancelNode.removeEventListener('click', onBigPictureCancelClick);
   document.removeEventListener('keydown', onEscKeyDown());
 };
-
-function onBigPictureCancelClick () {
-  closeBigPicture();
-}
 
 const openBigPicture = (pictureId) => {
   const currentPhoto = album.find((photo) => photo.id === Number(pictureId));
@@ -39,6 +39,7 @@ const openBigPicture = (pictureId) => {
 
   currentPhoto.comments.forEach((comment) => {
     const socialCommentNode = socialCommentsTempleate.cloneNode(true);
+
     socialCommentNode.querySelector('.social__picture').src = comment.avatar;
     socialCommentNode.querySelector('.social__picture').alt = comment.name;
     socialCommentNode.querySelector('.social__text').textContent = comment.message;
