@@ -4,7 +4,6 @@ import {openBigPicture} from './Image_viewer.js';
 
 container.addEventListener('click', (evt) => {
   const currentPictureNode = evt.target.closest('.picture');
-
   if(currentPictureNode){
     openBigPicture(currentPictureNode.dataset.pictureId);
   }
