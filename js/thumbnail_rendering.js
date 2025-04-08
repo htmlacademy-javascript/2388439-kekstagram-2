@@ -1,6 +1,6 @@
 import {album} from './upload.js';
+export const container = document.querySelector('.pictures');
 const template = document.querySelector('#picture').content.querySelector('.picture');
-const container = document.querySelector('.pictures');
 
 const createThumbnails = (photo) => {
   const thumbnail = template.cloneNode(true);
@@ -9,6 +9,7 @@ const createThumbnails = (photo) => {
 
   image.src = photo.url;
   image.alt = photo.description;
+  thumbnail.dataset.pictureId = photo.id;
 
   info.querySelector('.picture__comments').textContent = photo.comments.length;
   info.querySelector('.picture__likes').textContent = photo.likes;

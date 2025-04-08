@@ -1,9 +1,6 @@
-// 4. Просмотр загруженных изображений
-
 import {NAME_AUTHORS, COMMENTS, RANGE_COMMENTS_ID} from'./data.js';
 import {getRandomInteger, retrieveIndices, createRangeOfNumbers} from'./utils.js';
 
-//.................... Фунция создающая комментарии.....................//
 const createComment = () => {
 
   const avatarAuthors = createRangeOfNumbers(1,NAME_AUTHORS.length);
@@ -29,4 +26,3 @@ const createComment = () => {
 
 export {createComment};
 
-//------------------------------------------------------------------------//
