@@ -10,24 +10,26 @@ const commentsCountMode = bigPictureNode.querySelector('.social__comment-count')
 const commentLoaderNode = bigPictureNode.querySelector('.social__comments-loader');
 const bigPictureCancelNode = bigPictureNode.querySelector('.cancel');
 
-const closeBigPicture = () => {
-  bigPictureNode.classList.add('hidden');
-  bigPictureCancelNode.removeEventListener('click', onBigPictureCancelClick);
-  document.removeEventListener('keydown', onEscKeyDown);
-};
-
-function onEscKeyDown(evt) {
+const onEscKeyDown = (evt) => {
   if (evt.key === 'Escape') {
     evt.preventDefault();
     closeBigPicture();
   }
-}
+};
 
-function onBigPictureCancelClick() {
+const onBigPictureCancelClick = () => {
   closeBigPicture();
+};
+
+function closeBigPicture(){
+  bigPictureNode.classList.add('hidden');
+  document.body.classList.remove('modal-open');
+  bigPictureCancelNode.removeEventListener('click', onBigPictureCancelClick);
+  document.removeEventListener('keydown', onEscKeyDown);
 }
 
-const openBigPicture = (pictureId) => {
+function openBigPicture(pictureId){
+
   const currentPhoto = album.find((photo) => photo.id === Number(pictureId));
   const socialCommentsFragment = document.createDocumentFragment();
 
@@ -37,14 +39,11 @@ const openBigPicture = (pictureId) => {
 
   currentPhoto.comments.forEach((comment) => {
     const socialCommentNode = socialCommentsTempleate.cloneNode(true);
-
     socialCommentNode.querySelector('.social__picture').src = comment.avatar;
     socialCommentNode.querySelector('.social__picture').alt = comment.name;
     socialCommentNode.querySelector('.social__text').textContent = comment.message;
-
     socialCommentsFragment.appendChild(socialCommentNode);
   });
-
   socialCommentsNode.appendChild(socialCommentsFragment);
   commentsCaptionNode.textContent = currentPhoto.description;
   commentsCountMode.classList.add('hidden');
@@ -54,6 +53,7 @@ const openBigPicture = (pictureId) => {
   bigPictureCancelNode.addEventListener('click', onBigPictureCancelClick);
   document.body.classList.add('modal-open');
   document.addEventListener('keydown', onEscKeyDown);
-};
+
+}
 
 export { openBigPicture };
