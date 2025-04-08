@@ -16,16 +16,14 @@ const closeBigPicture = () => {
   document.removeEventListener('keydown', onEscKeyDown);
 };
 
-function onEscKeyDown() {
-  document.addEventListener('keydown', (evt) => {
-    if (evt.key === 'Escape') {
-      evt.preventDefault();
-      closeBigPicture();
-    }
-  });
+function onEscKeyDown(evt) {
+  if (evt.key === 'Escape') {
+    evt.preventDefault();
+    closeBigPicture();
+  }
 }
 
-function onBigPictureCancelClick () {
+function onBigPictureCancelClick() {
   closeBigPicture();
 }
 
@@ -58,4 +56,4 @@ const openBigPicture = (pictureId) => {
   document.addEventListener('keydown', onEscKeyDown);
 };
 
-export{openBigPicture};
+export { openBigPicture };
