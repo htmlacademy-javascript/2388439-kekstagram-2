@@ -12,6 +12,7 @@ const bigPictureCancelNode = bigPictureNode.querySelector('.cancel');
 
 const closeBigPicture = () => {
   bigPictureNode.classList.add('hidden');
+  document.body.classList.remove('modal-open');
   bigPictureCancelNode.removeEventListener('click', onBigPictureCancelClick);
   document.removeEventListener('keydown', onEscKeyDown);
 };
