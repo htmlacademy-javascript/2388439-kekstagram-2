@@ -10,6 +10,12 @@ const commentsCountMode = bigPictureNode.querySelector('.social__comment-count')
 const commentLoaderNode = bigPictureNode.querySelector('.social__comments-loader');
 const bigPictureCancelNode = bigPictureNode.querySelector('.cancel');
 
+const closeBigPicture = () => {
+  bigPictureNode.classList.add('hidden');
+  bigPictureCancelNode.removeEventListener('click', onBigPictureCancelClick);
+  document.removeEventListener('keydown', onEscKeyDown);
+};
+
 function onEscKeyDown() {
   document.addEventListener('keydown', (evt) => {
     if (evt.key === 'Escape') {
@@ -22,12 +28,6 @@ function onEscKeyDown() {
 function onBigPictureCancelClick () {
   closeBigPicture();
 }
-
-const closeBigPicture = () => {
-  bigPictureNode.classList.add('hidden');
-  bigPictureCancelNode.removeEventListener('click', onBigPictureCancelClick);
-  document.removeEventListener('keydown', onEscKeyDown);
-};
 
 const openBigPicture = (pictureId) => {
   const currentPhoto = album.find((photo) => photo.id === Number(pictureId));
