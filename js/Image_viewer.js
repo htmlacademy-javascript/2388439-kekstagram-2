@@ -1,9 +1,7 @@
 import {album} from './upload.js';
-import {clearComments, renderComments} from './render_comments.js';
-export const bigPictureNode = document.querySelector('.big-picture');
+import {clearComments, renderComments, bigPictureNode} from './render_comments.js';
 const bigPictureImgNode = bigPictureNode.querySelector('.big-picture__img').querySelector('img');
 const likesCountNode = bigPictureNode.querySelector('.likes-count');
-//const commentsCaptionNode = bigPictureNode.querySelector('.social__caption');
 const bigPictureCancelNode = bigPictureNode.querySelector('.cancel');
 
 const onEscKeyDown = (evt) => {
@@ -31,7 +29,6 @@ function openBigPicture(pictureId){
 
   bigPictureImgNode.src = currentPhoto.url;
   likesCountNode.textContent = currentPhoto.likes;
-  //socialCommentsNode.textContent = currentPhoto.description;
 
   renderComments(currentPhoto.comments);
 
