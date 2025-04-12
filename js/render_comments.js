@@ -27,7 +27,7 @@ const renderNextComments = () => {
   socialCommentsNode.appendChild(socialCommentsFragment);
 
   commentsCountNode.firstChild.textContent = `${renderedCommentsLength} из`;
-  commentsCountNode.querySelector('.social__comment-shown-count').textContent = comments.length;
+  commentsCountNode.querySelector('.social__comment-total-count').textContent = comments.length;
 
   if(renderedCommentsLength >= comments.length){
     commentLoaderNode.classList.add('hidden');
