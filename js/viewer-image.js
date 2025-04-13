@@ -1,5 +1,5 @@
 import {album} from './upload.js';
-import {clearComments, renderComments, bigPictureNode} from './render_comments.js';
+import {clearComments, renderComments, bigPictureNode} from './render-comments.js';
 const bigPictureImgNode = bigPictureNode.querySelector('.big-picture__img').querySelector('img');
 const likesCountNode = bigPictureNode.querySelector('.likes-count');
 const bigPictureCancelNode = bigPictureNode.querySelector('.cancel');
