@@ -39,4 +39,4 @@ function openBigPicture(pictureId){
 
 }
 
-export { openBigPicture };
+export {openBigPicture};
