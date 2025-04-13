@@ -10,3 +10,4 @@ container.addEventListener('click', (evt) => {
     evt.preventDefault();
   }
 });
+// Точка входа.
