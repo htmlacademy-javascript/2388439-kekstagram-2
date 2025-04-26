@@ -1,4 +1,4 @@
-import { isEscapeKey } from "./utils";
+import { isEscapeKey } from './utils.js';
 
 // 1.1. Загрузка нового изображения:
 
@@ -18,3 +18,36 @@ const photoEditorResetBtn = photoEditorForm.querySelector('#upload-cancel'); // 
 
 const hashtagInput = uploadForm.querySelector('.text__hashtags'); //Поле для добавления хештега к изображению.
 const commentInput = uploadForm.querySelector('.text__description'); // Поле для добавления комментария к изображению.
+
+const onPhotoEditorResetBtnClick = () => {
+  closePhotoEditor();
+};
+
+const onDocumentKeydown = (evt) => {
+  if(isEscapeKey(evt)) {
+    evt.preventDefault();
+    if(document.activeElement === hashtagInput || document.activeElement === commentInput) {
+      evt.stopPropagation();
+    } else {
+      uploadForm.reset();
+      closePhotoEditor();
+    }
+  }
+};
+
+function closePhotoEditor(){
+  photoEditorForm.classList.add('hidden');
+  pageBody.classList.remove('modal-open');
+  document.removeEventListener('keydown', onDocumentKeydown);
+  photoEditorResetBtn.removeEventListener('click', onPhotoEditorResetBtnClick);
+  uploadFileControl.value = '';
+}
+
+export const initUploadModal = () => {
+  uploadFileControl.addEventListener('change', () => {
+    photoEditorForm.classList.remove('hidden');
+    pageBody.classList.add('modal-open');
+    photoEditorResetBtn.addEventListener('click', onPhotoEditorResetBtnClick);
+    document.addEventListener('keydown', onDocumentKeydown);
+  });
+};
