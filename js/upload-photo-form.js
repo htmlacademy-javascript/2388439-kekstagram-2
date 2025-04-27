@@ -51,3 +51,12 @@ export const initUploadModal = () => {
     document.addEventListener('keydown', onDocumentKeydown);
   });
 };
+
+const pristine = new Pristine(uploadForm, {
+  classTo: 'img-upload__field-wrapper',
+  errorClass: 'img-upload__field-wrapper--error',
+  errorTextParent: 'mg-upload__field-wrapper',
+});
+pristine.addValidator(hashtagInput, (value) => {
+  console.log(/\d/.test(value));
+});
