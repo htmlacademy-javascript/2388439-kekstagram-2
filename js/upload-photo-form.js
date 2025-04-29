@@ -1,3 +1,4 @@
+import { isHashtagsValid } from './check-hashtag-validity.js';
 import { isEscapeKey } from './utils.js';
 
 const pageBody = document.querySelector('body');
