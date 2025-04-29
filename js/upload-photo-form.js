@@ -5,9 +5,14 @@ const uploadForm = document.querySelector('.img-upload__form'); //imgUploadForm
 const photoEditorForm = uploadForm.querySelector('.img-upload__overlay'); //uploadOverlay
 const uploadFileControl = uploadForm.querySelector('#upload-file'); //uploadFile
 const photoEditorResetBtn = photoEditorForm.querySelector('#upload-cancel'); //imaUploadCancel
-
-const commentInput = uploadForm.querySelector('.text__description');
+const smaller = uploadForm.querySelector('.scale__control--smaller');
+const bigger = uploadForm.querySelector('.scale__control--bigger');
+const img = uploadForm.querySelector('.img-upload__preview');
+const scaleControl = uploadForm.querySelector('.scale__control--value');
+const effectLevel = uploadForm.querySelector('.img-upload__effect-level');
+const effectList = uploadForm.querySelector('.effects__list');
 const hashtagInput = uploadForm.querySelector('.text__hashtags'); //inputHashtag
+const commentInput = uploadForm.querySelector('.text__description');
 
 const onPhotoEditorResetBtnClick = () => {
   closePhotoEditor();
