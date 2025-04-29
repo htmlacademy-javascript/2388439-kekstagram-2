@@ -14,6 +14,9 @@ const effectList = uploadForm.querySelector('.effects__list');
 const hashtagInput = uploadForm.querySelector('.text__hashtags'); //inputHashtag
 const commentInput = uploadForm.querySelector('.text__description');
 
+const SCALE_STEP = 0.25;
+let scale = 1;
+
 const onPhotoEditorResetBtnClick = () => {
   closePhotoEditor();
 };
@@ -47,13 +50,21 @@ export const initUploadModal = () => {
   });
 };
 
+// const pristine = new Pristine(uploadForm, {
+//   classTo: 'img-upload__field-wrapper',
+//   errorClass: 'img-upload__field-wrapper--error',
+//   errorTextParent: 'img-upload__field-wrapper',
+// });
+
+// pristine.addValidator(hashtagInput, (value) => {
+//   const hasNumber = /\d/.test(value);
+//   return !hasNumber;
+// }, 'Ошибонька');
+
 const pristine = new Pristine(uploadForm, {
-  classTo: 'img-upload__field-wrapper',
-  errorClass: 'img-upload__field-wrapper--error',
-  errorTextParent: 'img-upload__field-wrapper',
+  classTo: 'img-upload__form',
+  errorClass: 'img-upload__field-wrapper',
+  errorTextParent: 'img-upload__field-wrapper--error',
 });
 
-pristine.addValidator(hashtagInput, (value) => {
-  const hasNumber = /\d/.test(value);
-  return !hasNumber;
-}, 'Ошибонька');
+pristine.addValidator(hashtagInput, isHashtagsValid, 2, false);
