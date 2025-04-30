@@ -19,7 +19,7 @@ const bigger = uploadForm.querySelector('.scale__control--bigger');
 
 const scaleControl = uploadForm.querySelector('.scale__control--value');
 const effectLevel = uploadForm.querySelector('.img-upload__effect-level');
-const effectList = uploadForm.querySelector('.effects__list');
+//const effectList = uploadForm.querySelector('.effects__list');
 
 const SCALE_STEP = 0.25;
 let scale = 1;
