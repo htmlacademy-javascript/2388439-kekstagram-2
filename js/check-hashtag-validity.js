@@ -12,7 +12,7 @@ const isHashtagsValid = (value) => {
 
   const inputText = value.toLowerCase().trim();
 
-  if (!inputText) {
+  if (inputText.length === 0) {
     return true;
   }
 
@@ -24,7 +24,7 @@ const isHashtagsValid = (value) => {
       error: 'Хештег не может состоять только из одной решётки',
     },
     {
-      check: inputArray.some((item) => item.slice(1).includes === ('#')),
+      check: inputArray.some((item) => item.slice(1).includes('#')),
       error: 'Хештеги разделяются пробелами',
     },
     {
@@ -32,7 +32,7 @@ const isHashtagsValid = (value) => {
       error: 'Хештег должен начинаться с символа \'#\'',
     },
     {
-      check: inputArray.some((item, num, array) => array.includes(item, num)),
+      check: inputArray.some((item, num, array) => array.includes(item, num + 1)),
       error: 'Хештеги не должны повторяться',
     },
     {
@@ -44,7 +44,7 @@ const isHashtagsValid = (value) => {
       error: `Нельзя указать больше ${MAX_HASHTAGS} ${numDecline(MAX_HASHTAGS, 'хештега', 'хештегов', 'хештегов')}`,
     },
     {
-      check: inputArray.some((item) => !/^#[a-za-яё0-9]{1,19}$/i.test(item)),
+      check: inputArray.some((item) => !/^#[a-zа-яё0-9]{1,19}$/i.test(item)),
       error: 'Хештег содежрит недопустимые символы',
     },
   ];
