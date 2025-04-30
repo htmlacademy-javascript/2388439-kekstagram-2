@@ -1,18 +1,22 @@
 import { isHashtagsValid } from './check-hashtag-validity.js';
 import { isEscapeKey} from './utils.js';
-import { onEffectChange } from './effects-slider.js';
+//import { onEffectChange } from './effects-slider.js';
 
 export const uploadForm = document.querySelector('.img-upload__form'); //imgUploadForm
 export const img = uploadForm.querySelector('.img-upload__preview img');
+
 const pageBody = document.querySelector('body');
-const photoEditorForm = uploadForm.querySelector('.img-upload__overlay'); //uploadOverlay
+
+const photoEditorForm = uploadForm.querySelector('.img-upload__overlay'); //uploadOverlay Форма редактирования изображения
 const uploadFileControl = uploadForm.querySelector('#upload-file'); //uploadFile
 const photoEditorResetBtn = photoEditorForm.querySelector('#upload-cancel'); //imaUploadCancel
+
 const hashtagInput = uploadForm.querySelector('.text__hashtags'); //inputHashtag
 const commentInput = uploadForm.querySelector('.text__description');
 
 const smaller = uploadForm.querySelector('.scale__control--smaller');
 const bigger = uploadForm.querySelector('.scale__control--bigger');
+
 const scaleControl = uploadForm.querySelector('.scale__control--value');
 const effectLevel = uploadForm.querySelector('.img-upload__effect-level');
 const effectList = uploadForm.querySelector('.effects__list');
@@ -21,7 +25,7 @@ const SCALE_STEP = 0.25;
 let scale = 1;
 
 const pristine = new Pristine(uploadForm, {
-  classTo: 'img-upload__form',
+  classTo: 'img-upload__field-wrapper',
   errorClass: 'img-upload__field-wrapper--error',
   errorTextParent: 'img-upload__field-wrapper',
 });
@@ -96,7 +100,7 @@ bigger.addEventListener('click', onBiggerClick);
 
 uploadFileControl.addEventListener('change', initUploadModal);
 
-effectList.addEventListener('change', onEffectChange);
+//effectList.addEventListener('change', onEffectChange);
 
 hashtagInput.addEventListener('input', onHashtagInput);
 

@@ -29,5 +29,3 @@ effectSlider.noUiSlider.on('update', () => {
     }
   });
 });
-
-export {onEffectChange};
