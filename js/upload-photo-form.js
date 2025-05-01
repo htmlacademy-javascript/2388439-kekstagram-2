@@ -13,6 +13,10 @@ const photoEditorResetBtn = photoEditorForm.querySelector('#upload-cancel');
 const hashtagInput = uploadForm.querySelector('.text__hashtags');
 const commentInput = uploadForm.querySelector('.text__description');
 
+const smaller = uploadForm.querySelector('.scale__control--smaller');
+const bigger = uploadForm.querySelector('.scale__control--bigger');
+const scaleControl = uploadForm.querySelector('.scale__control--value');
+
 const pristine = new Pristine(uploadForm, {
   classTo: 'img-upload__field-wrapper',
   errorClass: 'img-upload__field-wrapper--error',
