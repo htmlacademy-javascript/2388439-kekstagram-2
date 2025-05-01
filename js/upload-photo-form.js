@@ -17,6 +17,28 @@ const smaller = uploadForm.querySelector('.scale__control--smaller');
 const bigger = uploadForm.querySelector('.scale__control--bigger');
 const scaleControl = uploadForm.querySelector('.scale__control--value');
 
+let scale = 1;
+const SCALE_STEP = 0.25;
+
+const onSmallerClick = () => {
+  if (scale > SCALE_STEP) {
+    scale -= SCALE_STEP;
+    img.style.transform = `scale(${scale})`;
+    scaleControl.value = `${scale * 100}%`;
+  }
+};
+
+const onBiggerClick = () => {
+  if (scale < 1) {
+    img.style.transform = `scale(${scale += SCALE_STEP})`;
+    scaleControl.value = `${scale * 100}%`;
+  }
+};
+
+smaller.addEventListener('click', onSmallerClick);
+
+bigger.addEventListener('click', onBiggerClick);
+
 const pristine = new Pristine(uploadForm, {
   classTo: 'img-upload__field-wrapper',
   errorClass: 'img-upload__field-wrapper--error',
