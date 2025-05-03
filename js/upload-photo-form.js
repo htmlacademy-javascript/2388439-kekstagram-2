@@ -1,7 +1,8 @@
 import { error, isHashtagsValid} from './check-hashtag-validity.js';
 import { isEscapeKey} from './utils.js';
+import { onEffectChange } from './slider-editor.js';
 
-const uploadForm = document.querySelector('.img-upload__form');
+export const uploadForm = document.querySelector('.img-upload__form');
 const img = uploadForm.querySelector('.img-upload__preview img');
 
 const pageBody = document.querySelector('body');
@@ -12,6 +13,33 @@ const photoEditorResetBtn = photoEditorForm.querySelector('#upload-cancel');
 
 const hashtagInput = uploadForm.querySelector('.text__hashtags');
 const commentInput = uploadForm.querySelector('.text__description');
+
+const smaller = uploadForm.querySelector('.scale__control--smaller');
+const bigger = uploadForm.querySelector('.scale__control--bigger');
+const scaleControl = uploadForm.querySelector('.scale__control--value');
+const effectList = uploadForm.querySelector('.effects__list');
+
+let scale = 1;
+const SCALE_STEP = 0.25;
+
+const onSmallerClick = () => {
+  if (scale > SCALE_STEP) {
+    scale -= SCALE_STEP;
+    img.style.transform = `scale(${scale})`;
+    scaleControl.value = `${scale * 100}%`;
+  }
+};
+
+const onBiggerClick = () => {
+  if (scale < 1) {
+    img.style.transform = `scale(${scale += SCALE_STEP})`;
+    scaleControl.value = `${scale * 100}%`;
+  }
+};
+
+smaller.addEventListener('click', onSmallerClick);
+
+bigger.addEventListener('click', onBiggerClick);
 
 const pristine = new Pristine(uploadForm, {
   classTo: 'img-upload__field-wrapper',
@@ -35,14 +63,19 @@ const onDocumentKeydown = (evt) => {
   }
 };
 
+function resetScale() {
+  scale = 1;
+  img.style.transform = `scale(${scale})`;
+  scaleControl.value = `${scale * 100}%`;
+}
+
 function closePhotoEditor(){
   pageBody.classList.remove('modal-open');
   photoEditorForm.classList.add('hidden');
-  img.style.filter = 'none';
-  uploadForm.reset();
   document.removeEventListener('keydown', onDocumentKeydown);
   photoEditorResetBtn.removeEventListener('click', onPhotoEditorResetBtnClick);
   uploadFileControl.value = '';
+  resetScale();
 }
 
 export const initUploadModal = () => {
@@ -73,3 +106,7 @@ uploadFileControl.addEventListener('change', initUploadModal);
 hashtagInput.addEventListener('input', onHashtagInput);
 
 uploadForm.addEventListener('submit', onFormSubmit);
+
+effectList.addEventListener('change', onEffectChange);
+
+export{resetScale};
