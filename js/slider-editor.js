@@ -2,7 +2,7 @@ const imgUploadWrapper = document.querySelector('.img-upload__wrapper');
 const slider = imgUploadWrapper.querySelector('.effect-level__slider');
 const effectLevel = imgUploadWrapper.querySelector('.img-upload__effect-level');
 const effectLevelValue = imgUploadWrapper.querySelector('.effect-level__value');
-const img = imgUploadWrapper.querySelector('.img-upload__preview');
+const img = imgUploadWrapper.querySelector('.img-upload__preview img');
 
 noUiSlider.create(slider, {
   start: 0,
@@ -42,7 +42,7 @@ const onEffectChange = (evt) => {
           min: 0,
           max: 1,
         },
-        start: 0.5,
+        start: 1,
         step: 0.1,
       });
       break;
@@ -52,7 +52,7 @@ const onEffectChange = (evt) => {
           min: 0,
           max: 1,
         },
-        start: 0.5,
+        start: 1,
         step: 0.1,
       });
       break;
@@ -62,7 +62,7 @@ const onEffectChange = (evt) => {
           min: 0,
           max: 100,
         },
-        start: 50,
+        start: 100,
         step: 1,
       });
       break;
@@ -72,7 +72,7 @@ const onEffectChange = (evt) => {
           min: 0,
           max: 3,
         },
-        start: 1.5,
+        start: 3,
         step: 0.1,
       });
       break;
@@ -82,7 +82,7 @@ const onEffectChange = (evt) => {
           min: 1,
           max: 3,
         },
-        start: 1.5,
+        start: 3,
         step: 0.1,
       });
   }
@@ -98,7 +98,7 @@ const updateFilter = (effect) => {
       img.style.filter = `sepia(${value})`;
       break;
     case 'marvin':
-      img.style.filter = `invert(${value})`;
+      img.style.filter = `invert(${value}%)`;
       break;
     case 'phobos':
       img.style.filter = `blur(${value}px)`;
