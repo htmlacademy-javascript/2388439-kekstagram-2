@@ -63,15 +63,19 @@ const onDocumentKeydown = (evt) => {
   }
 };
 
+function resetScale() {
+  scale = 1;
+  img.style.transform = `scale(${scale})`;
+  scaleControl.value = `${scale * 100}%`;
+}
+
 function closePhotoEditor(){
   pageBody.classList.remove('modal-open');
   photoEditorForm.classList.add('hidden');
   document.removeEventListener('keydown', onDocumentKeydown);
   photoEditorResetBtn.removeEventListener('click', onPhotoEditorResetBtnClick);
   uploadFileControl.value = '';
-  scale = 1;
-  img.style.transform = `scale(${scale})`;
-  scaleControl.value = `${scale * 100}%`;
+  resetScale();
 }
 
 export const initUploadModal = () => {
@@ -104,3 +108,5 @@ hashtagInput.addEventListener('input', onHashtagInput);
 uploadForm.addEventListener('submit', onFormSubmit);
 
 effectList.addEventListener('change', onEffectChange);
+
+export{resetScale};

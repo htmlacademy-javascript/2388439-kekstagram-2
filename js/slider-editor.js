@@ -1,3 +1,4 @@
+import{resetScale} from './upload-photo-form.js';
 const imgUploadWrapper = document.querySelector('.img-upload__wrapper');
 const slider = imgUploadWrapper.querySelector('.effect-level__slider');
 const effectLevel = imgUploadWrapper.querySelector('.img-upload__effect-level');
@@ -28,6 +29,7 @@ const onEffectChange = (evt) => {
 
   if (effect === 'none') {
     effectLevel.classList.add('hidden');
+    resetScale();
   } else {
     effectLevel.classList.remove('hidden');
   }
