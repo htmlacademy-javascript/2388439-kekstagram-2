@@ -66,11 +66,12 @@ const onDocumentKeydown = (evt) => {
 function closePhotoEditor(){
   pageBody.classList.remove('modal-open');
   photoEditorForm.classList.add('hidden');
-  img.style.filter = 'none';
-  uploadForm.reset();
   document.removeEventListener('keydown', onDocumentKeydown);
   photoEditorResetBtn.removeEventListener('click', onPhotoEditorResetBtnClick);
   uploadFileControl.value = '';
+  scale = 1;
+  img.style.transform = `scale(${scale})`;
+  scaleControl.value = `${scale * 100}%`;
 }
 
 export const initUploadModal = () => {
