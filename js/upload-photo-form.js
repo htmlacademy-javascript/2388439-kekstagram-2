@@ -1,6 +1,6 @@
 import { error, isHashtagsValid} from './check-hashtag-validity.js';
 import { isEscapeKey} from './utils.js';
-import { onEffectChange } from './slider-editor.js'
+import { onEffectChange } from './slider-editor.js';
 
 export const uploadForm = document.querySelector('.img-upload__form');
 const img = uploadForm.querySelector('.img-upload__preview img');

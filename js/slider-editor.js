@@ -37,61 +37,59 @@ const onEffectChange = (evt) => {
       img.style.filter = 'none';
       break;
     case 'chrome':
-      slider.noUiSlider.updateOptions( {
+      slider.noUiSlider.updateOptions({
         range: {
           min: 0,
           max: 1,
         },
-        start: 50,
+        start: 0.5,
         step: 0.1,
       });
-      // // slider.noUiSlider.on('update', () => {
-      // //   img.style.filter = `grayscale(${effectLevelValue.value})`;
-      // });
       break;
     case 'sepia':
-      slider.noUiSlider.updateOptions( {
+      slider.noUiSlider.updateOptions({
         range: {
           min: 0,
           max: 1,
         },
-        start: 0,
+        start: 0.5,
         step: 0.1,
       });
-      // slider.noUiSlider.on('update', () => {
-      //   img.style.filter = `sepia(${effectLevelValue.value})`;
-      // });
       break;
     case 'marvin':
-      slider.noUiSlider.updateOptions( {
+      slider.noUiSlider.updateOptions({
         range: {
           min: 0,
           max: 100,
         },
-        start: 0,
+        start: 50,
         step: 1,
       });
-      // slider.noUiSlider.on('update', () => {
-      //   img.style.filter = `invert(${effectLevelValue.value})`;
-      // });
+      break;
+    case 'phobos':
+      slider.noUiSlider.updateOptions({
+        range: {
+          min: 0,
+          max: 3,
+        },
+        start: 0.5,
+        step: 0.1,
+      });
       break;
     case 'heat':
-      slider.noUiSlider.updateOptions( {
+      slider.noUiSlider.updateOptions({
         range: {
           min: 1,
           max: 3,
         },
-        start: 0,
+        start: 0.5,
         step: 0.1,
       });
-      // slider.noUiSlider.on('update', () => {
-      //   img.style.filter = `brightness(${effectLevelValue.value})`;
-      // });
   }
-}
+};
 
 const updateFilter = (effect) => {
-  const value = effectLevelValue.value; // Получаем текущее значение слайдера
+  const value = effectLevelValue.value;
   switch (effect) {
     case 'chrome':
       img.style.filter = `grayscale(${value})`;
@@ -102,6 +100,9 @@ const updateFilter = (effect) => {
     case 'marvin':
       img.style.filter = `invert(${value})`;
       break;
+    case 'phobos':
+      img.style.filter = `blur(${value}px)`;
+      break;
     case 'heat':
       img.style.filter = `brightness(${value})`;
       break;
@@ -110,25 +111,11 @@ const updateFilter = (effect) => {
   }
 };
 
-// Привязываем обработчик события update к слайдеру
 slider.noUiSlider.on('update', () => {
   effectLevelValue.value = slider.noUiSlider.get();
-  const effect = document.querySelector('input[name="effect"]:checked').value; // Получаем текущий эффект
-  updateFilter(effect); // Вызываем функцию обновления фильтра
+  const effect = document.querySelector('input[name="effect"]:checked').value;
+  updateFilter(effect);
 });
 
-export {onEffectChange};
-// effectSlider.noUiSlider.on('update', () => {
-//   effectLevelInput.value = effectSlider.noUiSlider.get();
-//   effectRadioBtns.forEach((item) =>{
-//     if(item.checked){
-//       if(item.value !== 'none') {
-//         sliderContainer.classList.remove('hidden');
-//         imgPreview.style.filter = StyleFilterByEffexts[item.value](effectLevelInput.value);
-//       } else {
-//         fesetFilter();
-//       }
-//     }
-//   });
-// });
 
+export {onEffectChange};
