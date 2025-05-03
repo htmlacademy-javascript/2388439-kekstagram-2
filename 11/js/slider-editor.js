@@ -72,7 +72,7 @@ const onEffectChange = (evt) => {
           min: 0,
           max: 3,
         },
-        start: 0.5,
+        start: 1.5,
         step: 0.1,
       });
       break;
@@ -82,7 +82,7 @@ const onEffectChange = (evt) => {
           min: 1,
           max: 3,
         },
-        start: 0.5,
+        start: 1.5,
         step: 0.1,
       });
   }
