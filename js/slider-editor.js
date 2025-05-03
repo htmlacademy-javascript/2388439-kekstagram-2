@@ -45,9 +45,9 @@ const onEffectChange = (evt) => {
         start: 50,
         step: 0.1,
       });
-      slider.noUiSlider.on('update', () => {
-        img.style.filter = `grayscale(${effectLevelValue.value})`;
-      });
+      // // slider.noUiSlider.on('update', () => {
+      // //   img.style.filter = `grayscale(${effectLevelValue.value})`;
+      // });
       break;
     case 'sepia':
       slider.noUiSlider.updateOptions( {
@@ -58,9 +58,9 @@ const onEffectChange = (evt) => {
         start: 0,
         step: 0.1,
       });
-      slider.noUiSlider.on('update', () => {
-        img.style.filter = `sepia(${effectLevelValue.value})`;
-      });
+      // slider.noUiSlider.on('update', () => {
+      //   img.style.filter = `sepia(${effectLevelValue.value})`;
+      // });
       break;
     case 'marvin':
       slider.noUiSlider.updateOptions( {
@@ -71,9 +71,9 @@ const onEffectChange = (evt) => {
         start: 0,
         step: 1,
       });
-      slider.noUiSlider.on('update', () => {
-        img.style.filter = `invert(${effectLevelValue.value})`;
-      });
+      // slider.noUiSlider.on('update', () => {
+      //   img.style.filter = `invert(${effectLevelValue.value})`;
+      // });
       break;
     case 'heat':
       slider.noUiSlider.updateOptions( {
@@ -84,11 +84,38 @@ const onEffectChange = (evt) => {
         start: 0,
         step: 0.1,
       });
-      slider.noUiSlider.on('update', () => {
-        img.style.filter = `brightness(${effectLevelValue.value})`;
-      });
+      // slider.noUiSlider.on('update', () => {
+      //   img.style.filter = `brightness(${effectLevelValue.value})`;
+      // });
   }
 }
+
+const updateFilter = (effect) => {
+  const value = effectLevelValue.value; // Получаем текущее значение слайдера
+  switch (effect) {
+    case 'chrome':
+      img.style.filter = `grayscale(${value})`;
+      break;
+    case 'sepia':
+      img.style.filter = `sepia(${value})`;
+      break;
+    case 'marvin':
+      img.style.filter = `invert(${value})`;
+      break;
+    case 'heat':
+      img.style.filter = `brightness(${value})`;
+      break;
+    default:
+      img.style.filter = 'none';
+  }
+};
+
+// Привязываем обработчик события update к слайдеру
+slider.noUiSlider.on('update', () => {
+  effectLevelValue.value = slider.noUiSlider.get();
+  const effect = document.querySelector('input[name="effect"]:checked').value; // Получаем текущий эффект
+  updateFilter(effect); // Вызываем функцию обновления фильтра
+});
 
 export {onEffectChange};
 // effectSlider.noUiSlider.on('update', () => {
