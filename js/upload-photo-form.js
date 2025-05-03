@@ -1,7 +1,8 @@
 import { error, isHashtagsValid} from './check-hashtag-validity.js';
 import { isEscapeKey} from './utils.js';
+import { onEffectChange } from './slider-editor.js'
 
-const uploadForm = document.querySelector('.img-upload__form');
+export const uploadForm = document.querySelector('.img-upload__form');
 const img = uploadForm.querySelector('.img-upload__preview img');
 
 const pageBody = document.querySelector('body');
@@ -16,6 +17,7 @@ const commentInput = uploadForm.querySelector('.text__description');
 const smaller = uploadForm.querySelector('.scale__control--smaller');
 const bigger = uploadForm.querySelector('.scale__control--bigger');
 const scaleControl = uploadForm.querySelector('.scale__control--value');
+const effectList = uploadForm.querySelector('.effects__list');
 
 let scale = 1;
 const SCALE_STEP = 0.25;
@@ -99,3 +101,5 @@ uploadFileControl.addEventListener('change', initUploadModal);
 hashtagInput.addEventListener('input', onHashtagInput);
 
 uploadForm.addEventListener('submit', onFormSubmit);
+
+effectList.addEventListener('change', onEffectChange);
