@@ -21,6 +21,11 @@ const Method = {
 //     .then((response) =>
 //       response.ok ? response.json() : Promise.reject(ErrorText[method]));
 
+//     // .then((response) => {
+//     //   console.log(response);
+//     //   return response.ok ? response.json() : Promise.reject(ErrorText[method]);
+//     // });
+
 // const getData = () => load(Route.GET_DATA);
 
 // const sendData = (body) => load(Route.SEND_DATA, Method.POST,body);
