@@ -10,11 +10,12 @@ const Method = {
   POST: 'POST',
 };
 
+const ErrorText = {
+  [Method.GET]: 'Не удалось загрузить данные. Попробуйте ещё раз',
+  [Method.POST]: 'Не удалось отправить данные формы',
+};
+
 // На промисах:
-// const ErrorText = {
-//   [Method.GET]: 'Не удалось загрузить данные. Попробуйте ещё раз',
-//   [Method.POST]: 'Не удалось отправить данные формы',
-// };
 
 // const load = (route, method = Method.GET, body =null) =>
 //   fetch(`${BASE_URL}${route}` , { method, body })
