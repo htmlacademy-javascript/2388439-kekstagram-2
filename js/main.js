@@ -2,7 +2,6 @@
 import {openBigPicture} from './viewer-image.js';
 import {container} from './thumbnail-rendering.js';
 import {initUploadModal} from './upload-photo-form.js';
-import {getData} from './api.js';
 
 container.addEventListener('click', (evt) => {
   const currentPictureNode = evt.target.closest('.picture');
@@ -14,4 +13,3 @@ container.addEventListener('click', (evt) => {
 });
 
 initUploadModal();
-getData().then(data => { console.table(data); });
