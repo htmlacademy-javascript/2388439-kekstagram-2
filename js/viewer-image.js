@@ -41,20 +41,14 @@ function closeBigPicture(){
 // }
 
 function openBigPicture(pictureId) {
-  // Предполагаем, что album - это промис, который возвращает объект
   album.then((albumData) => {
-    // Находим текущую фотографию по pictureId
     const currentPhoto = Object.values(albumData).find((photo) => photo.id === Number(pictureId));
 
     if (currentPhoto) {
-      // Устанавливаем данные для большого изображения
       bigPictureImgNode.src = currentPhoto.url;
       likesCountNode.textContent = currentPhoto.likes;
 
-      // Если renderComments больше не нужна, закомментируйте или удалите следующую строку
       renderComments(currentPhoto.comments);
-
-      // Показываем большое изображение
       bigPictureNode.classList.remove('hidden');
       bigPictureCancelNode.addEventListener('click', onBigPictureCancelClick);
       document.body.classList.add('modal-open');

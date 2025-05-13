@@ -17,29 +17,13 @@ const ErrorText = {
 
 // На промисах:
 
-// const load = (route, method = Method.GET, body =null) =>
-//   fetch(`${BASE_URL}${route}` , { method, body })
-//     .then((response) =>
-//       response.ok ? response.json() : Promise.reject(ErrorText[method]));
+const load = (route, method = Method.GET, body = null) =>
+  fetch(`${BASE_URL}${route}` , { method, body })
+    .then((response) =>
+      response.ok ? response.json() : Promise.reject(ErrorText[method]));
 
-//     // .then((response) => {
-//     //   console.log(response);
-//     //   return response.ok ? response.json() : Promise.reject(ErrorText[method]);
-//     // });
+const getData = () => load(Route.GET_DATA);
 
-// const getData = () => load(Route.GET_DATA);
-
-// const sendData = (body) => load(Route.SEND_DATA, Method.POST,body);
-
-// С использованием async/await
-
-const load = async (route, method = Method.GET, body = null) => {
-  const response = await fetch(`${BASE_URL}${route}`, { method, body });
-  return response.ok ? await response.json() : Promise.reject(ErrorText[method]);
-};
-
-const getData = async () => await load(Route.GET_DATA);
-
-const sendData = async (body) => await load(Route.SEND_DATA, Method.POST,body);
+const sendData = (body) => load(Route.SEND_DATA, Method.POST,body);
 
 export { getData, sendData };
