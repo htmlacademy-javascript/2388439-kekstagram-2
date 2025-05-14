@@ -1,4 +1,3 @@
-import {album} from './upload.js';
 import {clearComments, renderComments} from './render-comments.js';
 const bigPictureNode = document.querySelector('.big-picture');
 const bigPictureImgNode = bigPictureNode.querySelector('.big-picture__img').querySelector('img');
@@ -28,14 +27,14 @@ function closeBigPicture(){
 function openBigPicture(photo) {
 
   if (photo) {
-    bigPictureImgNode.src = photo.url; // Устанавливаем URL большого изображения
-    likesCountNode.textContent = photo.likes; // Устанавливаем количество лайков
+    bigPictureImgNode.src = photo.url;
+    likesCountNode.textContent = photo.likes;
 
-    renderComments(photo.comments); // Отображаем комментарии
-    bigPictureNode.classList.remove('hidden'); // Показываем модальное окно
-    bigPictureCancelNode.addEventListener('click', onBigPictureCancelClick); // Обработчик закрытия
-    document.body.classList.add('modal-open'); // Блокируем прокрутку
-    document.addEventListener('keydown', onEscKeyDown); // Обработчик нажатия клавиши Esc
+    renderComments(photo.comments);
+    bigPictureNode.classList.remove('hidden');
+    bigPictureCancelNode.addEventListener('click', onBigPictureCancelClick);
+    document.body.classList.add('modal-open');
+    document.addEventListener('keydown', onEscKeyDown);
   }
 }
 export {openBigPicture};
