@@ -14,4 +14,3 @@ container.addEventListener('click', (evt) => {
 });
 
 initUploadModal();
-getData().then(data => { console.table(data); });
