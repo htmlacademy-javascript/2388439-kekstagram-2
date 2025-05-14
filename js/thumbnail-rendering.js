@@ -1,8 +1,8 @@
 import {getData} from './api.js';
-import { openBigPicture } from './viewer-image.js';
+import {openBigPicture} from './viewer-image.js';
 export const container = document.querySelector('.pictures');
 
-const album = getData().then(data => {
+const album = getData().then((data) => {
   data.forEach((photo) => {
     const template = document.querySelector('#picture').content.querySelector('.picture');
     const thumbnail = template.cloneNode(true);

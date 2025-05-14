@@ -26,20 +26,16 @@ function closeBigPicture(){
 }
 
 function openBigPicture(photo) {
-  console.log(photo); // Для отладки
 
   if (photo) {
     bigPictureImgNode.src = photo.url; // Устанавливаем URL большого изображения
     likesCountNode.textContent = photo.likes; // Устанавливаем количество лайков
 
     renderComments(photo.comments); // Отображаем комментарии
-    console.log(renderComments);
     bigPictureNode.classList.remove('hidden'); // Показываем модальное окно
     bigPictureCancelNode.addEventListener('click', onBigPictureCancelClick); // Обработчик закрытия
     document.body.classList.add('modal-open'); // Блокируем прокрутку
     document.addEventListener('keydown', onEscKeyDown); // Обработчик нажатия клавиши Esc
-  } else {
-    console.error('Фотография не найдена');
   }
 }
 export {openBigPicture};
