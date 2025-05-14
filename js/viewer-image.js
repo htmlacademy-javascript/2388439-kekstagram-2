@@ -1,5 +1,6 @@
 import {album} from './upload.js';
-import {clearComments, renderComments, bigPictureNode} from './render-comments.js';
+import {clearComments, renderComments} from './render-comments.js';
+const bigPictureNode = document.querySelector('.big-picture');
 const bigPictureImgNode = bigPictureNode.querySelector('.big-picture__img').querySelector('img');
 const likesCountNode = bigPictureNode.querySelector('.likes-count');
 const bigPictureCancelNode = bigPictureNode.querySelector('.cancel');
@@ -25,20 +26,20 @@ function closeBigPicture(){
 }
 
 function openBigPicture(photo) {
-  console.log(photo);
+  console.log(photo); // Для отладки
 
   if (photo) {
-    bigPictureImgNode.src = photo.url;
-    likesCountNode.textContent = photo.likes;
+    bigPictureImgNode.src = photo.url; // Устанавливаем URL большого изображения
+    likesCountNode.textContent = photo.likes; // Устанавливаем количество лайков
 
-    renderComments(photo.comments);
-    bigPictureNode.classList.remove('hidden');
-    bigPictureCancelNode.addEventListener('click', onBigPictureCancelClick);
-    document.body.classList.add('modal-open');
-    document.addEventListener('keydown', onEscKeyDown);
+    renderComments(photo.comments); // Отображаем комментарии
+    console.log(renderComments);
+    bigPictureNode.classList.remove('hidden'); // Показываем модальное окно
+    bigPictureCancelNode.addEventListener('click', onBigPictureCancelClick); // Обработчик закрытия
+    document.body.classList.add('modal-open'); // Блокируем прокрутку
+    document.addEventListener('keydown', onEscKeyDown); // Обработчик нажатия клавиши Esc
   } else {
     console.error('Фотография не найдена');
   }
 }
-
 export {openBigPicture};
