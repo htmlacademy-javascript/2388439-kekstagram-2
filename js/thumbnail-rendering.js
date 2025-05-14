@@ -1,7 +1,6 @@
 import {getData} from './api.js';
 import { openBigPicture } from './viewer-image.js';
 export const container = document.querySelector('.pictures');
-const template = document.querySelector('#picture').content.querySelector('.picture');
 
 const album = getData().then(data => {
   data.forEach((photo) => {

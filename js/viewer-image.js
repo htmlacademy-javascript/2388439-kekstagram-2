@@ -1,6 +1,5 @@
-//import {album} from './upload.js';
+import {album} from './upload.js';
 import {clearComments, renderComments, bigPictureNode} from './render-comments.js';
-import {album} from './thumbnail-rendering.js';
 const bigPictureImgNode = bigPictureNode.querySelector('.big-picture__img').querySelector('img');
 const likesCountNode = bigPictureNode.querySelector('.likes-count');
 const bigPictureCancelNode = bigPictureNode.querySelector('.cancel');
@@ -25,40 +24,21 @@ function closeBigPicture(){
   document.removeEventListener('keydown', onEscKeyDown);
 }
 
-// function openBigPicture(pictureId){
-//   const currentPhoto = album.find((photo) => photo.id === Number(pictureId));
+function openBigPicture(photo) {
+  console.log(photo);
 
-//   bigPictureImgNode.src = currentPhoto.url;
-//   likesCountNode.textContent = currentPhoto.likes;
+  if (photo) {
+    bigPictureImgNode.src = photo.url;
+    likesCountNode.textContent = photo.likes;
 
-//   renderComments(currentPhoto.comments);
-
-//   bigPictureNode.classList.remove('hidden');
-//   bigPictureCancelNode.addEventListener('click', onBigPictureCancelClick);
-//   document.body.classList.add('modal-open');
-//   document.addEventListener('keydown', onEscKeyDown);
-
-// }
-
-function openBigPicture(pictureId) {
-  album.then((albumData) => {
-    const currentPhoto = Object.values(albumData).find((photo) => photo.id === Number(pictureId));
-
-    if (currentPhoto) {
-      bigPictureImgNode.src = currentPhoto.url;
-      likesCountNode.textContent = currentPhoto.likes;
-
-      renderComments(currentPhoto.comments);
-      bigPictureNode.classList.remove('hidden');
-      bigPictureCancelNode.addEventListener('click', onBigPictureCancelClick);
-      document.body.classList.add('modal-open');
-      document.addEventListener('keydown', onEscKeyDown);
-    } else {
-      console.error('Фотография не найдена');
-    }
-  }).catch((error) => {
-    console.error('Ошибка при получении альбома:', error);
-  });
+    renderComments(photo.comments);
+    bigPictureNode.classList.remove('hidden');
+    bigPictureCancelNode.addEventListener('click', onBigPictureCancelClick);
+    document.body.classList.add('modal-open');
+    document.addEventListener('keydown', onEscKeyDown);
+  } else {
+    console.error('Фотография не найдена');
+  }
 }
 
 export {openBigPicture};
