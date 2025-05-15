@@ -25,16 +25,19 @@ function closeBigPicture(){
 }
 
 function openBigPicture(photo) {
+  try {
+    if (photo) {
+      bigPictureImgNode.src = photo.url;
+      likesCountNode.textContent = photo.likes;
 
-  if (photo) {
-    bigPictureImgNode.src = photo.url;
-    likesCountNode.textContent = photo.likes;
-
-    renderComments(photo.comments);
-    bigPictureNode.classList.remove('hidden');
-    bigPictureCancelNode.addEventListener('click', onBigPictureCancelClick);
-    document.body.classList.add('modal-open');
-    document.addEventListener('keydown', onEscKeyDown);
+      renderComments(photo.comments);
+      bigPictureNode.classList.remove('hidden');
+      bigPictureCancelNode.addEventListener('click', onBigPictureCancelClick);
+      document.body.classList.add('modal-open');
+      document.addEventListener('keydown', onEscKeyDown);
+    }
+  } catch (error) {
+    showErrorMessage(error.message);
   }
 }
-export {openBigPicture};
+export { openBigPicture };
