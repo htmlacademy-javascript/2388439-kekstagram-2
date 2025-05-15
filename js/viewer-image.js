@@ -40,4 +40,4 @@ function openBigPicture(photo) {
     showErrorMessage(error.message);
   }
 }
-export { openBigPicture };
+export {openBigPicture};
