@@ -26,6 +26,9 @@ const SubmitButtonText = {
   SENDING: 'Идёт отправка...',
 };
 
+const templateSuccess = document.querySelector('#success').textContent;
+const templateError = document.querySelector('#error').textContent;
+
 let scale = 1;
 const SCALE_STEP = 0.25;
 
