@@ -1,6 +1,7 @@
 import {error, isHashtagsValid} from './check-hashtag-validity.js';
 import {isEscapeKey} from './utils.js';
 import {onEffectChange} from './slider-editor.js';
+import {sendData} from './api.js';
 
 export const uploadForm = document.querySelector('.img-upload__form');
 const img = uploadForm.querySelector('.img-upload__preview img');
@@ -18,6 +19,12 @@ const smaller = uploadForm.querySelector('.scale__control--smaller');
 const bigger = uploadForm.querySelector('.scale__control--bigger');
 const scaleControl = uploadForm.querySelector('.scale__control--value');
 const effectList = uploadForm.querySelector('.effects__list');
+
+const formSubmitButton = uploadForm.querySelector('.img-upload__submit');
+const SubmitButtonText = {
+  IDLE: 'Опубликовать',
+  SENDING: 'Идёт отправка...',
+};
 
 let scale = 1;
 const SCALE_STEP = 0.25;
@@ -93,11 +100,32 @@ const onHashtagInput = () => {
 
 pristine.addValidator(hashtagInput, isHashtagsValid, error, 2, false);
 
+const disabledButton = (text) => {
+  formSubmitButton.disabled = true;
+  formSubmitButton.textContent = text;
+};
+
+const enabledButton = (text) => {
+  formSubmitButton.disabled = false;
+  formSubmitButton.textContent = text;
+};
+
 const onFormSubmit = (evt) => {
   evt.preventDefault();
   if (pristine.validate()) {
-    hashtagInput.value = hashtagInput.value.trim().replaceAll(/\s+/g, '');
-    uploadForm.submit();
+    disabledButton(SubmitButtonText.SENDING);
+    const formData = new FormData(evt.target);
+    sendData(formData)
+    .then(() => {
+      closePhotoEditor();
+      console.log('Данные успешно отправлены');
+    })
+    .catch((error) => {
+      console.error(error);
+    })
+    .finally(() =>{
+      enabledButton(SubmitButtonText.IDLE);
+    })
   }
 };
 
