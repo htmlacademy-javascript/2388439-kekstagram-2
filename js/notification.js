@@ -18,3 +18,5 @@ const appendNotification = (templeate, trigger = null) => {
   body.addEventListener('click', closeNotification);
   body.addEventListener('keydown', closeNotification);
 };
+
+export{closeNotification, appendNotification};
