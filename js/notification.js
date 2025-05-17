@@ -1,4 +1,5 @@
-import {isEscapeKey} from "./utils";
+import {isEscapeKey} from './utils.js';
+import { pageBody } from './upload-photo-form.js';
 
 const closeNotification = (evt) => {
   evt.stopPropagation();
@@ -6,17 +7,17 @@ const closeNotification = (evt) => {
   const closeButton = existElement.querySelector('button');
   if(evt.target === existElement || evt.target === closeButton || isEscapeKey(evt)) {
     existElement.remove();
-    body.removeEventListener('click', closeNotification);
-    body.removeEventListener('keydown', closeNotification);
+    pageBody.removeEventListener('click', closeNotification);
+    pageBody.removeEventListener('keydown', closeNotification);
   }
 };
 
-const appendNotification = (templeate, trigger = null) => {
+const appendNotification = (template, trigger = null) => {
   trigger?.();
-  const notificationNode = templeate.cloneNode(true);
-  body.append(notificationNode);
-  body.addEventListener('click', closeNotification);
-  body.addEventListener('keydown', closeNotification);
+  const notificationNode = template.cloneNode(true);
+  pageBody.append(notificationNode);
+  pageBody.addEventListener('click', closeNotification);
+  pageBody.addEventListener('keydown', closeNotification);
 };
 
-export{closeNotification, appendNotification};
+export{appendNotification};

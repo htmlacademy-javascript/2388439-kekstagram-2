@@ -3,11 +3,12 @@ import {isEscapeKey} from './utils.js';
 import {onEffectChange} from './slider-editor.js';
 import {sendData} from './api.js';
 import {resetFilter} from './slider-editor.js';
+import {appendNotification} from './notification.js'
 
 export const uploadForm = document.querySelector('.img-upload__form');
 const img = uploadForm.querySelector('.img-upload__preview img');
 
-const pageBody = document.querySelector('body');
+export const pageBody = document.querySelector('body');
 
 const photoEditorForm = uploadForm.querySelector('.img-upload__overlay');
 const uploadFileControl = uploadForm.querySelector('#upload-file');
@@ -27,8 +28,8 @@ const SubmitButtonText = {
   SENDING: 'Идёт отправка...',
 };
 
-const templateSuccess = document.querySelector('#success').textContent;
-const templateError = document.querySelector('#error').textContent;
+const templateSuccess = document.querySelector('#success').content;
+const templateError = document.querySelector('#error').content;
 
 let scale = 1;
 const SCALE_STEP = 0.25;
@@ -128,10 +129,10 @@ const onFormSubmit = (evt) => {
     const formData = new FormData(evt.target);
     sendData(formData)
     .then(() => {
-      closePhotoEditor();
+      appendNotification(templateSuccess, closePhotoEditor());
     })
-    .catch((error) => {
-      console.error(error);
+    .catch(() => {
+      appendNotification(templateError);
     })
     .finally(() =>{
       enabledButton(SubmitButtonText.IDLE);
