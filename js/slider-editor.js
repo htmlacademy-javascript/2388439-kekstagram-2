@@ -1,9 +1,17 @@
-import{resetScale} from './upload-photo-form.js';
 const imgUploadWrapper = document.querySelector('.img-upload__wrapper');
 const slider = imgUploadWrapper.querySelector('.effect-level__slider');
 const effectLevel = imgUploadWrapper.querySelector('.img-upload__effect-level');
 const effectLevelValue = imgUploadWrapper.querySelector('.effect-level__value');
 const img = imgUploadWrapper.querySelector('.img-upload__preview img');
+const selectorImg = img.classList;
+
+export const resetFilter = () => {
+  img.style.removeProperty('filter');
+  effectLevel.classList.add('hidden');
+  if (selectorImg && img.classList.contains(selectorImg)) {
+    img.classList.replace(selectorImg, 'effects__preview--none');
+  }
+};
 
 noUiSlider.create(slider, {
   start: 0,
@@ -29,11 +37,9 @@ const onEffectChange = (evt) => {
 
   if (effect === 'none') {
     effectLevel.classList.add('hidden');
-    resetScale();
   } else {
     effectLevel.classList.remove('hidden');
   }
-
   switch (effect) {
     case 'none':
       img.style.filter = 'none';
@@ -118,6 +124,5 @@ slider.noUiSlider.on('update', () => {
   const effect = document.querySelector('input[name="effect"]:checked').value;
   updateFilter(effect);
 });
-
 
 export {onEffectChange};

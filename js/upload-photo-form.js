@@ -1,11 +1,14 @@
 import {error, isHashtagsValid} from './check-hashtag-validity.js';
 import {isEscapeKey} from './utils.js';
 import {onEffectChange} from './slider-editor.js';
+import {sendData} from './api.js';
+import {resetFilter} from './slider-editor.js';
+import {appendNotification} from './notification.js';
 
 export const uploadForm = document.querySelector('.img-upload__form');
 const img = uploadForm.querySelector('.img-upload__preview img');
 
-const pageBody = document.querySelector('body');
+export const pageBody = document.querySelector('body');
 
 const photoEditorForm = uploadForm.querySelector('.img-upload__overlay');
 const uploadFileControl = uploadForm.querySelector('#upload-file');
@@ -18,6 +21,15 @@ const smaller = uploadForm.querySelector('.scale__control--smaller');
 const bigger = uploadForm.querySelector('.scale__control--bigger');
 const scaleControl = uploadForm.querySelector('.scale__control--value');
 const effectList = uploadForm.querySelector('.effects__list');
+
+const formSubmitButton = uploadForm.querySelector('.img-upload__submit');
+const SubmitButtonText = {
+  IDLE: 'Опубликовать',
+  SENDING: 'Идёт отправка...',
+};
+
+const templateSuccess = document.querySelector('#success').content;
+const templateError = document.querySelector('#error').content;
 
 let scale = 1;
 const SCALE_STEP = 0.25;
@@ -69,13 +81,20 @@ function resetScale() {
   scaleControl.value = `${scale * 100}%`;
 }
 
+const resetValues = () => {
+  resetFilter();
+  resetScale();
+  uploadFileControl.value = '';
+  hashtagInput.value = '';
+  commentInput.value = '';
+};
+
 function closePhotoEditor(){
   pageBody.classList.remove('modal-open');
   photoEditorForm.classList.add('hidden');
   document.removeEventListener('keydown', onDocumentKeydown);
   photoEditorResetBtn.removeEventListener('click', onPhotoEditorResetBtnClick);
-  uploadFileControl.value = '';
-  resetScale();
+  resetValues();
 }
 
 export const initUploadModal = () => {
@@ -93,11 +112,31 @@ const onHashtagInput = () => {
 
 pristine.addValidator(hashtagInput, isHashtagsValid, error, 2, false);
 
+const disabledButton = (text) => {
+  formSubmitButton.disabled = true;
+  formSubmitButton.textContent = text;
+};
+
+const enabledButton = (text) => {
+  formSubmitButton.disabled = false;
+  formSubmitButton.textContent = text;
+};
+
 const onFormSubmit = (evt) => {
   evt.preventDefault();
   if (pristine.validate()) {
-    hashtagInput.value = hashtagInput.value.trim().replaceAll(/\s+/g, '');
-    uploadForm.submit();
+    disabledButton(SubmitButtonText.SENDING);
+    const formData = new FormData(evt.target);
+    sendData(formData)
+      .then(() => {
+        appendNotification(templateSuccess, closePhotoEditor());
+      })
+      .catch(() => {
+        appendNotification(templateError);
+      })
+      .finally(() =>{
+        enabledButton(SubmitButtonText.IDLE);
+      });
   }
 };
 
