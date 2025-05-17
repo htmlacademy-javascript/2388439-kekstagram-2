@@ -3,7 +3,7 @@ import {isEscapeKey} from './utils.js';
 import {onEffectChange} from './slider-editor.js';
 import {sendData} from './api.js';
 import {resetFilter} from './slider-editor.js';
-import {appendNotification} from './notification.js'
+import {appendNotification} from './notification.js';
 
 export const uploadForm = document.querySelector('.img-upload__form');
 const img = uploadForm.querySelector('.img-upload__preview img');
@@ -87,7 +87,7 @@ const resetValues = () => {
   uploadFileControl.value = '';
   hashtagInput.value = '';
   commentInput.value = '';
-}
+};
 
 function closePhotoEditor(){
   pageBody.classList.remove('modal-open');
@@ -124,19 +124,19 @@ const enabledButton = (text) => {
 
 const onFormSubmit = (evt) => {
   evt.preventDefault();
-  if (pristine.validate()) {
-    disabledButton(SubmitButtonText.SENDING);
-    const formData = new FormData(evt.target);
-    sendData(formData)
-    .then(() => {
-      appendNotification(templateSuccess, closePhotoEditor());
-    })
-    .catch(() => {
+    if (pristine.validate()) {
+      disabledButton(SubmitButtonText.SENDING);
+      const formData = new FormData(evt.target);
+      sendData(formData)
+        .then(() => {
+        appendNotification(templateSuccess, closePhotoEditor());
+      })
+      .catch(() => {
       appendNotification(templateError);
     })
-    .finally(() =>{
+      .finally(() =>{
       enabledButton(SubmitButtonText.IDLE);
-    })
+    });
   }
 };
 
