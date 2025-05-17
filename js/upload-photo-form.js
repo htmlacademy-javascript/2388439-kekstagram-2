@@ -80,16 +80,20 @@ function resetScale() {
   scaleControl.value = `${scale * 100}%`;
 }
 
-function closePhotoEditor(){
-  pageBody.classList.remove('modal-open');
-  photoEditorForm.classList.add('hidden');
-  document.removeEventListener('keydown', onDocumentKeydown);
-  photoEditorResetBtn.removeEventListener('click', onPhotoEditorResetBtnClick);
+const resetValues = () => {
   resetFilter();
   resetScale();
   uploadFileControl.value = '';
   hashtagInput.value = '';
   commentInput.value = '';
+}
+
+function closePhotoEditor(){
+  pageBody.classList.remove('modal-open');
+  photoEditorForm.classList.add('hidden');
+  document.removeEventListener('keydown', onDocumentKeydown);
+  photoEditorResetBtn.removeEventListener('click', onPhotoEditorResetBtnClick);
+  resetValues();
 }
 
 export const initUploadModal = () => {
