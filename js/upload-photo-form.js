@@ -124,19 +124,19 @@ const enabledButton = (text) => {
 
 const onFormSubmit = (evt) => {
   evt.preventDefault();
-    if (pristine.validate()) {
-      disabledButton(SubmitButtonText.SENDING);
-      const formData = new FormData(evt.target);
-      sendData(formData)
-        .then(() => {
+  if (pristine.validate()) {
+    disabledButton(SubmitButtonText.SENDING);
+    const formData = new FormData(evt.target);
+    sendData(formData)
+      .then(() => {
         appendNotification(templateSuccess, closePhotoEditor());
       })
       .catch(() => {
-      appendNotification(templateError);
-    })
+        appendNotification(templateError);
+      })
       .finally(() =>{
-      enabledButton(SubmitButtonText.IDLE);
-    });
+        enabledButton(SubmitButtonText.IDLE);
+      });
   }
 };
 
