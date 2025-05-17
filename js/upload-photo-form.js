@@ -125,7 +125,6 @@ const onFormSubmit = (evt) => {
     sendData(formData)
     .then(() => {
       closePhotoEditor();
-      console.log('Данные успешно отправлены');
     })
     .catch((error) => {
       console.error(error);
