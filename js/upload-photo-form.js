@@ -2,6 +2,7 @@ import {error, isHashtagsValid} from './check-hashtag-validity.js';
 import {isEscapeKey} from './utils.js';
 import {onEffectChange} from './slider-editor.js';
 import {sendData} from './api.js';
+import {resetFilter} from './slider-editor.js';
 
 export const uploadForm = document.querySelector('.img-upload__form');
 const img = uploadForm.querySelector('.img-upload__preview img');
@@ -84,8 +85,11 @@ function closePhotoEditor(){
   photoEditorForm.classList.add('hidden');
   document.removeEventListener('keydown', onDocumentKeydown);
   photoEditorResetBtn.removeEventListener('click', onPhotoEditorResetBtnClick);
-  uploadFileControl.value = '';
+  resetFilter();
   resetScale();
+  uploadFileControl.value = '';
+  hashtagInput.value = '';
+  commentInput.value = '';
 }
 
 export const initUploadModal = () => {
