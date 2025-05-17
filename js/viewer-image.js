@@ -36,8 +36,8 @@ function openBigPicture(photo) {
       document.body.classList.add('modal-open');
       document.addEventListener('keydown', onEscKeyDown);
     }
-  } catch (error) {
-    showErrorMessage(error.message);
+  } catch () {
+
   }
 }
 export {openBigPicture};
