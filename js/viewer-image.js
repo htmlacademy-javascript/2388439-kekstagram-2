@@ -25,7 +25,6 @@ function closeBigPicture(){
 }
 
 function openBigPicture(photo) {
-
   if (photo) {
     bigPictureImgNode.src = photo.url;
     likesCountNode.textContent = photo.likes;
