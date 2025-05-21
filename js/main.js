@@ -26,6 +26,7 @@ function throttle (callback, delayBetweenFrames) {
 
   return (...rest) => {
     const now = new Date();
+
     if (now - lastTime >= delayBetweenFrames) {
       callback.apply(this, rest);
       lastTime = now;
