@@ -5,7 +5,6 @@ import {FILTER, SORTFUNC, MAX_PICTURE_COUNT, DEBOUNCE_DEPAY} from './constants.j
 let currentFilter = 'filter-default';
 let pictures = [];
 const filterElement = document.querySelector('.img-filters');
-const filterButton = filterElement.querySelector('.img-filters__button');
 const ACTIVE_BUTTON_CLASS = 'img-filters__button--active';
 
 const debounceRender = debounce(openBigPicture);
@@ -13,7 +12,7 @@ const debounceRender = debounce(openBigPicture);
 function onFilterChange(evt) {
   const targetButton = evt.target;
   const activeButton = document.querySelector(`.${ACTIVE_BUTTON_CLASS}`);
-  if(!targetButton.matches(filterButton)) {
+  if(!targetButton.matches('button')) {
     return;
   }
 
@@ -22,7 +21,7 @@ function onFilterChange(evt) {
   }
   activeButton.classList.toggle(ACTIVE_BUTTON_CLASS);
   targetButton.classList.toggle(ACTIVE_BUTTON_CLASS);
-  currentFilter = target.getAttribute('id');
+  currentFilter = targetButton.getAttribute('id');
 
   applyfilter();
 }
@@ -36,7 +35,14 @@ function applyfilter() {
     filteredPictures = pictures.toSorted(() => 0.5 - Math.random()).slice(0, 10);
   }
   if (currentFilter === FILTER.discussed) {
-    filteredPictures = pictures.toSortes((a, b) => b.comments.length - a.comments.length);
+    filteredPictures = pictures.toSorted((a, b) => b.comments.length - a.comments.length);
   }
   debounceRender(filteredPictures);
 }
+
+function configFilter(pictureData) {
+  filterElement.classList.remove('img-filters--inactive');
+  filterElement.addEventListener('click', onFilterChange);
+}
+
+export {configFilter};

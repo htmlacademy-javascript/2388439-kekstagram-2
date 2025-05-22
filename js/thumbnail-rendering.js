@@ -26,4 +26,4 @@ getData()
   })
   .catch((error) => {
     showErrorMessage(error.message);
-  });
+});
