@@ -1,6 +1,6 @@
 import{openBigPicture} from './viewer-image.js';
 import {debounce} from './utils.js';
-
+import {FILTER, SORTFUNC, MAX_PICTURE_COUNT, DEBOUNCE_DEPAY} from './constants.js'
 
 let currentFilter = 'filter-default';
 let pictures = [];
@@ -27,3 +27,16 @@ function onFilterChange(evt) {
   applyfilter();
 }
 
+function applyfilter() {
+  let filteredPictures = [];
+  if(currentFilter === FILTER.default) {
+    filteredPictures = pictures;
+  }
+  if(currentFilter === FILTER.random) {
+    filteredPictures = pictures.toSorted(() => 0.5 - Math.random()).slice(0, 10);
+  }
+  if (currentFilter === FILTER.discussed) {
+    filteredPictures = pictures.toSortes((a, b) => b.comments.length - a.comments.length);
+  }
+  debounceRender(filteredPictures);
+}
