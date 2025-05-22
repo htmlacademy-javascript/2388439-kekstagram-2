@@ -5,6 +5,7 @@ import {debounce} from './utils.js';
 let currentFilter = 'filter-default';
 let pictures = [];
 const filterElement = document.querySelector('.img-filters');
+const filterButton = filterElement.querySelector('.img-filters__button');
 const ACTIVE_BUTTON_CLASS = 'img-filters__button--active';
 
 const debounceRender = debounce(openBigPicture);
@@ -12,7 +13,7 @@ const debounceRender = debounce(openBigPicture);
 function onFilterChange(evt) {
   const targetButton = evt.target;
   const activeButton = document.querySelector(`.${ACTIVE_BUTTON_CLASS}`);
-  if(!targetButton.matches('button')) {
+  if(!targetButton.matches(filterButton)) {
     return;
   }
 
