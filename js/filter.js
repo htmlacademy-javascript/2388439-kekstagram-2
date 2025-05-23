@@ -8,7 +8,7 @@ let pictures = [];
 const filterElement = document.querySelector('.img-filters');
 const ACTIVE_BUTTON_CLASS = 'img-filters__button--active';
 
-const debounceRender = debounce(openBigPicture);
+const debounceRender = debounce(photosArray);
 
 function onFilterChange(evt) {
   const targetButton = evt.target;
