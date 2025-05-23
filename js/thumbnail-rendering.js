@@ -1,10 +1,13 @@
 import {getData} from './api.js';
 import {openBigPicture} from './viewer-image.js';
 import {showErrorMessage} from './error-message.js';
+
 export const container = document.querySelector('.pictures');
+export const photosArray = []; // Пустой массив для хранения фотографий
 
 getData()
   .then((data) => {
+
     data.forEach((photo) => {
       const template = document.querySelector('#picture').content.querySelector('.picture');
       const thumbnail = template.cloneNode(true);
@@ -22,6 +25,7 @@ getData()
         openBigPicture(photo);
       });
       container.appendChild(thumbnail);
+      photosArray.push(photo);
     });
   })
   .catch((error) => {

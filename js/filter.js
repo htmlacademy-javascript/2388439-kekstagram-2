@@ -1,5 +1,6 @@
 import{openBigPicture} from './viewer-image.js';
 import {debounce} from './utils.js';
+import{photosArray} from './thumbnail-rendering.js'
 import {FILTER, SORTFUNC, MAX_PICTURE_COUNT, DEBOUNCE_DEPAY} from './constants.js'
 
 let currentFilter = 'filter-default';
