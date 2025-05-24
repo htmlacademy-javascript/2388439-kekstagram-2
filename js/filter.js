@@ -1,14 +1,13 @@
-import{openBigPicture} from './viewer-image.js';
 import {debounce} from './utils.js';
-import{photosArray} from './thumbnail-rendering.js'
-import {FILTER, SORTFUNC, MAX_PICTURE_COUNT, DEBOUNCE_DEPAY} from './constants.js'
+import {renderBigPhoto} from './big-pictures.js';
+import {FILTER} from './constants.js';
 
 let currentFilter = 'filter-default';
-let pictures = [];
+
 const filterElement = document.querySelector('.img-filters');
 const ACTIVE_BUTTON_CLASS = 'img-filters__button--active';
 
-const debounceRender = debounce(photosArray);
+const debounceRender = debounce(renderBigPhoto);
 
 function onFilterChange(evt) {
   const targetButton = evt.target;
@@ -27,6 +26,8 @@ function onFilterChange(evt) {
   applyfilter();
 }
 
+let pictures = [];
+
 function applyfilter() {
   let filteredPictures = [];
   if(currentFilter === FILTER.default) {
@@ -44,6 +45,7 @@ function applyfilter() {
 function configFilter(pictureData) {
   filterElement.classList.remove('img-filters--inactive');
   filterElement.addEventListener('click', onFilterChange);
+  pictures = pictureData;
 }
 
 export {configFilter};

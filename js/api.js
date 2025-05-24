@@ -1,4 +1,4 @@
-const BASE_URL = ' https://31.javascript.htmlacademy.pro/kekstagram';
+const BASE_URL = 'https://31.javascript.htmlacademy.pro/kekstagram';
 
 const Route = {
   GET_DATA: '/data',
@@ -14,8 +14,6 @@ const ErrorText = {
   [Method.GET]: 'Не удалось загрузить данные. Попробуйте ещё раз',
   [Method.POST]: 'Не удалось отправить данные формы',
 };
-
-// На промисах:
 
 const load = (route, method = Method.GET, body = null) =>
   fetch(`${BASE_URL}${route}` , { method, body })

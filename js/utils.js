@@ -32,12 +32,10 @@ const numDecline = (num, nominative, genitiveSingular, genitivePlural) => {
 };
 
 function debounce (callback, timeoutDelay = 500) {
-
   let timeoutId;
-  return (...rest) => {
+  return function() {
     clearTimeout(timeoutId);
-
-    timeoutId = setTimeout(() => callback.apply(this, rest), timeoutDelay);
+    timeoutId = setTimeout(() => callback(...arguments), timeoutDelay);
   };
 }
 
