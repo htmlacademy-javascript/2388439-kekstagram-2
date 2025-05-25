@@ -1,8 +1,8 @@
 import {container} from './thumbnail-rendering.js';
 import {initUploadModal} from './upload-photo-form.js';
+import {bootstrapApp} from './sorting.js';
 import {configFilter} from './filter.js';
 import {createPhotoThumbnails} from './thumbnail-rendering.js';
-import {showErrorMessage} from './error-message.js';
 
 container.addEventListener('click', (evt) => {
   const currentPictureNode = evt.target.closest('.picture');
@@ -12,15 +12,6 @@ container.addEventListener('click', (evt) => {
   }
 });
 
-async function butstrapApp() {
-  initUploadModal();
-  try {
-    const pictures = await createPhotoThumbnails();
-    configFilter(pictures);
-  } catch {
-    showErrorMessage();
-  }
-}
-
-butstrapApp();
+initUploadModal();
+bootstrapApp();
 
