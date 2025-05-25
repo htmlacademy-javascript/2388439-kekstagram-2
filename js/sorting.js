@@ -7,7 +7,7 @@ let pictures = [];
 function sortThumbnails(picturesData) {
   clearBigPhoto();
   pictures = picturesData;
-  createPhotoThumbnails();
+  //createPhotoThumbnails(pictures);
   container.addEventListener('click', onBigPhotoClick);
   console.table(pictures);
 }

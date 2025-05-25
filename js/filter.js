@@ -32,15 +32,12 @@ function applyfilter() {
   let filteredPictures = [];
   if(currentFilter === FILTER.default) {
     filteredPictures = pictures;
-    console.log(pictures);
   }
   if(currentFilter === FILTER.random) {
     filteredPictures = pictures.toSorted(() => 0.5 - Math.random()).slice(0, 10);
-    console.log(pictures);
   }
   if (currentFilter === FILTER.discussed) {
     filteredPictures = pictures.toSorted((a, b) => b.comments.length - a.comments.length);
-    console.log(pictures);
   }
   debounceRender(filteredPictures);
 }
