@@ -4,7 +4,7 @@ import {createPhotoThumbnails} from './thumbnail-rendering.js';
 
 let pictures = [];
 
-function renderBigPhoto(picturesData) {
+function sortThumbnails(picturesData) {
   clearBigPhoto();
   pictures = picturesData;
   createPhotoThumbnails();
@@ -27,4 +27,4 @@ function clearBigPhoto() {
   container.querySelectorAll('a.picture').forEach((item) => item.remove());
 }
 
-export{renderBigPhoto};
+export{sortThumbnails};

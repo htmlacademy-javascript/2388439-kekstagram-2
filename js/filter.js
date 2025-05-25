@@ -1,5 +1,5 @@
 import {debounce} from './utils.js';
-import {renderBigPhoto} from './big-pictures.js';
+import {sortThumbnails} from './sorting.js';
 import {FILTER} from './constants.js';
 
 let currentFilter = 'filter-default';
@@ -7,7 +7,7 @@ let currentFilter = 'filter-default';
 const filterElement = document.querySelector('.img-filters');
 const ACTIVE_BUTTON_CLASS = 'img-filters__button--active';
 
-const debounceRender = debounce(renderBigPhoto);
+const debounceRender = debounce(sortThumbnails);
 
 function onFilterChange(evt) {
   const targetButton = evt.target;
@@ -32,12 +32,15 @@ function applyfilter() {
   let filteredPictures = [];
   if(currentFilter === FILTER.default) {
     filteredPictures = pictures;
+    console.log(pictures);
   }
   if(currentFilter === FILTER.random) {
     filteredPictures = pictures.toSorted(() => 0.5 - Math.random()).slice(0, 10);
+    console.log(pictures);
   }
   if (currentFilter === FILTER.discussed) {
     filteredPictures = pictures.toSorted((a, b) => b.comments.length - a.comments.length);
+    console.log(pictures);
   }
   debounceRender(filteredPictures);
 }
