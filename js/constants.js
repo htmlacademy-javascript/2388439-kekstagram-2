@@ -1,3 +1,5 @@
+export const MAX_HASHTAGS = 5;
+export const MAX_SYMBOLS = 20;
 export const COUNT_STEP = 5;
 export const REMOVE_MESSAGE_TIMEOUT = 5000;
 export const CONTAINER_CLASS = '.pictures';

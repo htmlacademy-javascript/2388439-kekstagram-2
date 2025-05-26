@@ -1,7 +1,5 @@
 import {numDecline} from './utils.js';
-
-const MAX_HASHTAGS = 5;
-const MAX_SYMBOLS = 20;
+import {MAX_HASHTAGS, MAX_SYMBOLS} from './constants.js';
 
 let errorMessage = '';
 
