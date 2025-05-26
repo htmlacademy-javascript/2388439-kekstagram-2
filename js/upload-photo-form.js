@@ -3,15 +3,16 @@ import {isEscapeKey} from './utils.js';
 import {appendNotification} from './notification.js';
 import {onEffectChange, resetFilter} from './slider-editor.js';
 import {error, isHashtagsValid} from './check-hashtag-validity.js';
+import {FILE_TYPES} from './constants.js';
 
 export const uploadForm = document.querySelector('.img-upload__form');
-const img = uploadForm.querySelector('.img-upload__preview img');
-
 export const pageBody = document.querySelector('body');
 
+const img = uploadForm.querySelector('.img-upload__preview img');
 const photoEditorForm = uploadForm.querySelector('.img-upload__overlay');
 const uploadFileControl = uploadForm.querySelector('#upload-file');
 const photoEditorResetBtn = photoEditorForm.querySelector('#upload-cancel');
+const uploadFileInput = uploadForm.querySelector('.img-upload__input');
 
 const hashtagInput = uploadForm.querySelector('.text__hashtags');
 const commentInput = uploadForm.querySelector('.text__description');
@@ -138,6 +139,17 @@ const onFormSubmit = (evt) => {
       });
   }
 };
+
+function onFileInputChange() {
+  const file = uploadFileInput.files[0];
+  const fileName = file.name.toLowerCase();
+  const matches = FILE_TYPES.some((item) => file.endsWith(item));
+  if(matches) {
+    const url = URL.createObjectURL(file);
+    img.src = url;
+
+  }
+}
 
 uploadFileControl.addEventListener('change', initUploadModal);
 
