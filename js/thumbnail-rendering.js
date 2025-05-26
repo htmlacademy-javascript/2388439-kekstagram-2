@@ -2,8 +2,9 @@ import {getData} from './api.js';
 import {openBigPicture} from './viewer-image.js';
 import {showErrorMessage} from './error-message.js';
 import {CONTAINER_CLASS, TEMPLATE_SELECTOR, PICTURE_CLASS, IMAGE_CLASS, INFO_CLASS, COMMENTS_CLASS, LIKES_CLASS} from './constants.js';
-export const container = document.querySelector(CONTAINER_CLASS);
-export const photosArray = [];
+
+const container = document.querySelector(CONTAINER_CLASS);
+const photosArray = [];
 
 function createThumbnail(photo) {
   const template = document.querySelector(TEMPLATE_SELECTOR).content.querySelector(PICTURE_CLASS);
@@ -39,4 +40,4 @@ const createPhotoThumbnails = async () => {
     showErrorMessage(error.message);
   }
 };
-export {createPhotoThumbnails};
+export {createPhotoThumbnails, createThumbnail, container, photosArray};

@@ -1,6 +1,6 @@
 import {openBigPicture} from'./viewer-image.js';
 import {container} from './thumbnail-rendering.js';
-import {createPhotoThumbnails} from './thumbnail-rendering.js';
+import {createPhotoThumbnails, createThumbnail} from './thumbnail-rendering.js';
 import {configFilter} from './filter.js';
 import {showErrorMessage} from './error-message.js';
 
@@ -19,23 +19,10 @@ function sortThumbnails(picturesData) {
   pictures = picturesData;
   clearPhoto();
   container.addEventListener('click', onBigPhotoClick);
-  pictures.forEach((photo) => {
-    const template = document.querySelector('#picture').content.querySelector('.picture');
-    const thumbnail = template.cloneNode(true);
-    const image = thumbnail.querySelector('.picture__img');
-    const info = thumbnail.querySelector('.picture__info');
-
-    image.src = photo.url;
-    image.alt = photo.description;
-    thumbnail.dataset.pictureId = photo.id;
-
-    info.querySelector('.picture__comments').textContent = photo.comments.length;
-    info.querySelector('.picture__likes').textContent = photo.likes;
-
-    thumbnail.addEventListener('click', () => {
-      openBigPicture(photo);
-    });
+  picturesData.forEach((photo) => {
+    const thumbnail = createThumbnail(photo);
     container.appendChild(thumbnail);
+    pictures.push(photo);
   });
 }
 
