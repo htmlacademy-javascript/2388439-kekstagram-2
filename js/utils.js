@@ -1,4 +1,4 @@
-import{DEBOUNCE_DEPAY} from './constants';
+import{DEBOUNCE_DEPAY} from './constants.js';
 
 const isEscapeKey = (evt) => evt.key === 'Escape';
 
