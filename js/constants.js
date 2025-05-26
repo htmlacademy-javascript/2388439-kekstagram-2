@@ -1,3 +1,4 @@
+export const CONTAINER_CLASS = '.pictures';
 export const TEMPLATE_SELECTOR = '#picture';
 export const PICTURE_CLASS = '.picture';
 export const IMAGE_CLASS = '.picture__img';
