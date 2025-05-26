@@ -1,15 +1,20 @@
-const FILTER = {
+export const TEMPLATE_SELECTOR = '#picture';
+export const PICTURE_CLASS = '.picture';
+export const IMAGE_CLASS = '.picture__img';
+export const INFO_CLASS = '.picture__info';
+export const COMMENTS_CLASS = '.picture__comments';
+export const LIKES_CLASS = '.picture__likes';
+
+export const FILTER = {
   default: 'filter-default',
   random: 'filter-random',
   discussed: 'filter-discussed',
 };
 
-const SORTFUNC = {
+export const SORTFUNC = {
   random: () => 0.5 - Math.random(),
   discussed: (a, b) => b.comments.length - a.comments.length
 };
 
-const MAX_PICTURE_COUNT = 10;
-const DEBOUNCE_DEPAY = 500;
-
-export{FILTER, SORTFUNC, MAX_PICTURE_COUNT, DEBOUNCE_DEPAY};
+export const MAX_PICTURE_COUNT = 10;
+export const DEBOUNCE_DEPAY = 500;
