@@ -22,22 +22,30 @@ function onFilterChange(evt) {
   targetButton.classList.toggle(ACTIVE_BUTTON_CLASS);
   currentFilter = targetButton.getAttribute('id');
 
-  applyfilter();
+  applyFilter();
 }
 
 let pictures = [];
 
-function applyfilter() {
+function applyFilter() {
   let filteredPictures = [];
-  if(currentFilter === FILTER.default) {
-    filteredPictures = pictures;
+
+  const filterActions = {
+    [FILTER.default]: () => {
+      filteredPictures = pictures;
+    },
+    [FILTER.random]: () => {
+      filteredPictures = pictures.toSorted(SORTFUNC.random).slice(0, MAX_PICTURE_COUNT);
+    },
+    [FILTER.discussed]: () => {
+      filteredPictures = pictures.toSorted(SORTFUNC.discussed);
+    }
+  };
+
+  if (filterActions[currentFilter]) {
+    filterActions[currentFilter]();
   }
-  if(currentFilter === FILTER.random) {
-    filteredPictures = pictures.toSorted(SORTFUNC.random).slice(0, MAX_PICTURE_COUNT);
-  }
-  if (currentFilter === FILTER.discussed) {
-    filteredPictures = pictures.toSorted(SORTFUNC.discussed);
-  }
+
   debounceRender(filteredPictures);
 }
 
