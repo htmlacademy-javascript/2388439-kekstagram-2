@@ -1,3 +1,5 @@
+import{DEBOUNCE_DEPAY} from './constants';
+
 const getRandomInteger = (a, b) => {
   const lower = Math.ceil(Math.min(a, b));
   const upper = Math.floor(Math.max(a, b));
@@ -31,7 +33,7 @@ const numDecline = (num, nominative, genitiveSingular, genitivePlural) => {
   return num % 10 === 1 ? nominative : genitiveSingular;
 };
 
-function debounce (callback, timeoutDelay = 500) {
+function debounce (callback, timeoutDelay = DEBOUNCE_DEPAY) {
   let timeoutId;
   return function() {
     clearTimeout(timeoutId);

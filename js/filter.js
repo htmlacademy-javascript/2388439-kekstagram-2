@@ -1,11 +1,10 @@
 import {debounce} from './utils.js';
 import {sortThumbnails} from './sorting.js';
-import {FILTER} from './constants.js';
+import {FILTER, SORTFUNC, MAX_PICTURE_COUNT, ACTIVE_BUTTON_CLASS} from './constants.js';
 
 let currentFilter = 'filter-default';
 
 const filterElement = document.querySelector('.img-filters');
-const ACTIVE_BUTTON_CLASS = 'img-filters__button--active';
 
 const debounceRender = debounce(sortThumbnails);
 
@@ -34,10 +33,10 @@ function applyfilter() {
     filteredPictures = pictures;
   }
   if(currentFilter === FILTER.random) {
-    filteredPictures = pictures.toSorted(() => 0.5 - Math.random()).slice(0, 10);
+    filteredPictures = pictures.toSorted(SORTFUNC.random).slice(0, MAX_PICTURE_COUNT);
   }
   if (currentFilter === FILTER.discussed) {
-    filteredPictures = pictures.toSorted((a, b) => b.comments.length - a.comments.length);
+    filteredPictures = pictures.toSorted(SORTFUNC.discussed);
   }
   debounceRender(filteredPictures);
 }

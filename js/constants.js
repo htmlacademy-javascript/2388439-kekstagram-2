@@ -5,6 +5,7 @@ export const IMAGE_CLASS = '.picture__img';
 export const INFO_CLASS = '.picture__info';
 export const COMMENTS_CLASS = '.picture__comments';
 export const LIKES_CLASS = '.picture__likes';
+export const ACTIVE_BUTTON_CLASS = 'img-filters__button--active';
 
 export const FILTER = {
   default: 'filter-default',
