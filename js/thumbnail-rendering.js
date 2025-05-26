@@ -1,27 +1,23 @@
 import {getData} from './api.js';
-import {openBigPicture} from './viewer-image.js';
-export const container = document.querySelector('.pictures');
+import {showErrorMessage} from './error-message.js';
+import {createThumbnail} from './cteate-tumbnail.js';
+import {CONTAINER_CLASS} from './constants.js';
 
-const album = getData().then((data) => {
-  data.forEach((photo) => {
-    const template = document.querySelector('#picture').content.querySelector('.picture');
-    const thumbnail = template.cloneNode(true);
-    const image = thumbnail.querySelector('.picture__img');
-    const info = thumbnail.querySelector('.picture__info');
+const container = document.querySelector(CONTAINER_CLASS);
+const photosArray = [];
 
-    image.src = photo.url;
-    image.alt = photo.description;
-    thumbnail.dataset.pictureId = photo.id;
+const createPhotoThumbnails = async () => {
+  try {
+    const data = await getData();
 
-
-    info.querySelector('.picture__comments').textContent = photo.comments.length;
-    info.querySelector('.picture__likes').textContent = photo.likes;
-
-    thumbnail.addEventListener('click', () => {
-      openBigPicture(photo);
+    data.forEach((photo) => {
+      const thumbnail = createThumbnail(photo);
+      container.appendChild(thumbnail);
+      photosArray.push(photo);
     });
-    container.appendChild(thumbnail);
-  });
-});
-
-export {album};
+    return photosArray;
+  } catch (error) {
+    showErrorMessage(error.message);
+  }
+};
+export {createPhotoThumbnails, createThumbnail, container, photosArray};
