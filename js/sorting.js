@@ -22,7 +22,6 @@ function sortThumbnails(picturesData) {
   picturesData.forEach((photo) => {
     const thumbnail = createThumbnail(photo);
     container.appendChild(thumbnail);
-    pictures.push(photo);
   });
 }
 
