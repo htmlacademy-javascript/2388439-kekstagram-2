@@ -1,4 +1,4 @@
-import {COUNT_STEP} from './constants.js'
+import {COUNT_STEP} from './constants.js';
 let currentCount = 0;
 let comments = [];
 

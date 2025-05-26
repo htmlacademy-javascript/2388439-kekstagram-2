@@ -1,6 +1,6 @@
 import {openBigPicture} from'./viewer-image.js';
 import {container, createPhotoThumbnails} from './thumbnail-rendering.js';
-import {createThumbnail} from './cteate-tumbnail.js'
+import {createThumbnail} from './cteate-tumbnail.js';
 import {configFilter} from './filter.js';
 import {showErrorMessage} from './error-message.js';
 import {error} from './check-hashtag-validity.js';

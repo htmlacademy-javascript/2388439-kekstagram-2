@@ -1,6 +1,6 @@
 import {getData} from './api.js';
 import {showErrorMessage} from './error-message.js';
-import {createThumbnail} from './cteate-tumbnail.js'
+import {createThumbnail} from './cteate-tumbnail.js';
 import {CONTAINER_CLASS} from './constants.js';
 
 const container = document.querySelector(CONTAINER_CLASS);
