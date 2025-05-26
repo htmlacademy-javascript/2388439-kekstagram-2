@@ -1,3 +1,5 @@
+export const COUNT_STEP = 5;
+export const REMOVE_MESSAGE_TIMEOUT = 5000;
 export const CONTAINER_CLASS = '.pictures';
 export const TEMPLATE_SELECTOR = '#picture';
 export const PICTURE_CLASS = '.picture';

@@ -1,7 +1,7 @@
 import {getData} from './api.js';
 import {showErrorMessage} from './error-message.js';
 import {createThumbnail} from './cteate-tumbnail.js'
-import {CONTAINER_CLASS, TEMPLATE_SELECTOR, PICTURE_CLASS, IMAGE_CLASS, INFO_CLASS, COMMENTS_CLASS, LIKES_CLASS} from './constants.js';
+import {CONTAINER_CLASS} from './constants.js';
 
 const container = document.querySelector(CONTAINER_CLASS);
 const photosArray = [];

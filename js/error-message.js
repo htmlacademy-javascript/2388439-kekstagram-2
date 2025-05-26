@@ -1,4 +1,4 @@
-const REMOVE_MESSAGE_TIMEOUT = 5000;
+import {REMOVE_MESSAGE_TIMEOUT} from './constants.js';
 const errorLoadDataTempleate = document.querySelector('#data-error').content;
 const body = document.body;
 
