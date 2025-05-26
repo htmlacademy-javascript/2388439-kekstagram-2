@@ -15,9 +15,6 @@ function onFilterChange(evt) {
     return;
   }
 
-  if(activeButton === targetButton) {
-    return;
-  }
   activeButton.classList.toggle(ACTIVE_BUTTON_CLASS);
   targetButton.classList.toggle(ACTIVE_BUTTON_CLASS);
   currentFilter = targetButton.getAttribute('id');
