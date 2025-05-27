@@ -28,3 +28,4 @@ export const MAX_PICTURE_COUNT = 10;
 export const DEBOUNCE_DEPAY = 500;
 
 export const FILE_TYPES = ['jpg', 'jpeg', 'gif', 'png'];
+export const ERROR_UPLOAD_MESAGE = 'Неверный формат файла.';

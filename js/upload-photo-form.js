@@ -3,8 +3,9 @@ import {isEscapeKey} from './utils.js';
 import {appendNotification} from './notification.js';
 import {onEffectChange, resetFilter} from './slider-editor.js';
 import {error, isHashtagsValid} from './check-hashtag-validity.js';
-import {FILE_TYPES} from './constants.js';
+import {FILE_TYPES, ERROR_UPLOAD_MESAGE} from './constants.js';
 import {showErrorMessage} from './error-message.js';
+import {configFilter} from './filter.js';
 
 export const uploadForm = document.querySelector('.img-upload__form');
 export const pageBody = document.querySelector('body');
@@ -146,18 +147,18 @@ const onFormSubmit = (evt) => {
 function onFileInputChange() {
   const file = uploadFileInput.files[0];
   const fileName = file.name.toLowerCase();
-  const fileExt = fileName.split('.').pop();
-  const matches = FILE_TYPES.includes(fileExt);
+  const matches = FILE_TYPES.some((item) => fileName.endsWith(item));
   if(matches) {
     const url = URL.createObjectURL(file);
     img.src = url;
     uploadPreviewEffects.forEach((item) => {
-      item.style.backgroundImage = `url(${url})`;
+    item.style.backgroundImage = `url(${url})`;
     });
-  }else {
+  }else{
+    closePhotoEditor();
+    showErrorMessage(ERROR_UPLOAD_MESAGE);
     return;
   }
-  showErrorMessage();
 }
 
 uploadFileControl.addEventListener('change', initUploadModal);
