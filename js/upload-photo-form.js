@@ -3,15 +3,17 @@ import {isEscapeKey} from './utils.js';
 import {appendNotification} from './notification.js';
 import {onEffectChange, resetFilter} from './slider-editor.js';
 import {error, isHashtagsValid} from './check-hashtag-validity.js';
+import {FILE_TYPES, ERROR_UPLOAD_MESAGE} from './constants.js';
+import {showErrorMessage} from './error-message.js';
 
 export const uploadForm = document.querySelector('.img-upload__form');
-const img = uploadForm.querySelector('.img-upload__preview img');
-
 export const pageBody = document.querySelector('body');
 
+const img = uploadForm.querySelector('.img-upload__preview > img');
 const photoEditorForm = uploadForm.querySelector('.img-upload__overlay');
 const uploadFileControl = uploadForm.querySelector('#upload-file');
 const photoEditorResetBtn = photoEditorForm.querySelector('#upload-cancel');
+const uploadFileInput = uploadForm.querySelector('.img-upload__input');
 
 const hashtagInput = uploadForm.querySelector('.text__hashtags');
 const commentInput = uploadForm.querySelector('.text__description');
@@ -20,6 +22,7 @@ const smaller = uploadForm.querySelector('.scale__control--smaller');
 const bigger = uploadForm.querySelector('.scale__control--bigger');
 const scaleControl = uploadForm.querySelector('.scale__control--value');
 const effectList = uploadForm.querySelector('.effects__list');
+const uploadPreviewEffects = document.querySelectorAll('.effects__preview');
 
 const formSubmitButton = uploadForm.querySelector('.img-upload__submit');
 const SubmitButtonText = {
@@ -102,6 +105,7 @@ export const initUploadModal = () => {
     pageBody.classList.add('modal-open');
     photoEditorResetBtn.addEventListener('click', onPhotoEditorResetBtnClick);
     document.addEventListener('keydown', onDocumentKeydown);
+    onFileInputChange();
   });
 };
 
@@ -139,6 +143,21 @@ const onFormSubmit = (evt) => {
   }
 };
 
+function onFileInputChange() {
+  const file = uploadFileInput.files[0];
+  const fileName = file.name.toLowerCase();
+  const matches = FILE_TYPES.some((item) => fileName.endsWith(item));
+  if(matches) {
+    const url = URL.createObjectURL(file);
+    img.src = url;
+    uploadPreviewEffects.forEach((item) => {
+      item.style.backgroundImage = `url(${url})`;
+    });
+  }else{
+    showErrorMessage(ERROR_UPLOAD_MESAGE);
+  }
+}
+
 uploadFileControl.addEventListener('change', initUploadModal);
 
 hashtagInput.addEventListener('input', onHashtagInput);
@@ -147,4 +166,4 @@ uploadForm.addEventListener('submit', onFormSubmit);
 
 effectList.addEventListener('change', onEffectChange);
 
-export{resetScale};
+export{resetScale, onFileInputChange};
