@@ -155,7 +155,6 @@ function onFileInputChange() {
     item.style.backgroundImage = `url(${url})`;
     });
   }else{
-    closePhotoEditor();
     showErrorMessage(ERROR_UPLOAD_MESAGE);
     return;
   }
