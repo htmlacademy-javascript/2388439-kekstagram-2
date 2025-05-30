@@ -3,6 +3,7 @@ const bigPictureNode = document.querySelector('.big-picture');
 const bigPictureImgNode = bigPictureNode.querySelector('.big-picture__img').querySelector('img');
 const likesCountNode = bigPictureNode.querySelector('.likes-count');
 const bigPictureCancelNode = bigPictureNode.querySelector('.cancel');
+const descriptionNode = bigPictureNode.querySelector('.social__caption');
 
 const onEscKeyDown = (evt) => {
   if (evt.key === 'Escape') {
@@ -28,7 +29,7 @@ function openBigPicture(photo) {
   if (photo) {
     bigPictureImgNode.src = photo.url;
     likesCountNode.textContent = photo.likes;
-
+    descriptionNode.textContent = photo.description;
     renderComments(photo.comments);
     bigPictureNode.classList.remove('hidden');
     bigPictureCancelNode.addEventListener('click', onBigPictureCancelClick);
