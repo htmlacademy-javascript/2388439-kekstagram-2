@@ -24,11 +24,7 @@ const scaleControl = uploadForm.querySelector('.scale__control--value');
 const effectList = uploadForm.querySelector('.effects__list');
 const uploadPreviewEffects = document.querySelectorAll('.effects__preview');
 
-const formSubmitButton = uploadForm.querySelector('.img-upload__submit');
-const SubmitButtonText = {
-  IDLE: 'Опубликовать',
-  SENDING: 'Идёт отправка...',
-};
+const formSubmitButton = uploadForm.querySelector('#upload-submit');
 
 const templateSuccess = document.querySelector('#success').content;
 const templateError = document.querySelector('#error').content;
@@ -103,9 +99,9 @@ export const initUploadModal = () => {
   uploadFileControl.addEventListener('change', () => {
     photoEditorForm.classList.remove('hidden');
     pageBody.classList.add('modal-open');
+    onFileInputChange();
     photoEditorResetBtn.addEventListener('click', onPhotoEditorResetBtnClick);
     document.addEventListener('keydown', onDocumentKeydown);
-    onFileInputChange();
   });
 };
 
@@ -115,9 +111,9 @@ const onHashtagInput = () => {
 
 pristine.addValidator(hashtagInput, isHashtagsValid, error, 2, false);
 
-const disabledButton = (text) => {
-  formSubmitButton.disabled = true;
-  formSubmitButton.textContent = text;
+const SubmitButtonText = {
+  IDLE: 'Опубликовать',
+  SENDING: 'Идёт отправка...',
 };
 
 const enabledButton = (text) => {
@@ -125,22 +121,29 @@ const enabledButton = (text) => {
   formSubmitButton.textContent = text;
 };
 
-const onFormSubmit = (evt) => {
-  evt.preventDefault();
-  if (pristine.validate()) {
+const disabledButton = (text) => {
+  formSubmitButton.disabled = true;
+  formSubmitButton.textContent = text;
+};
+
+const sendFormData = async (formElement) => {
+  const isValid = pristine.validate();
+  if(isValid) {
     disabledButton(SubmitButtonText.SENDING);
-    const formData = new FormData(evt.target);
-    sendData(formData)
-      .then(() => {
-        appendNotification(templateSuccess, closePhotoEditor());
-      })
-      .catch(() => {
-        appendNotification(templateError);
-      })
-      .finally(() =>{
-        enabledButton(SubmitButtonText.IDLE);
-      });
+    try {
+      await sendData(new FormData(formElement));
+      appendNotification(templateSuccess, () => closePhotoEditor());
+    } catch {
+      appendNotification(templateError);
+    } finally {
+      enabledButton(SubmitButtonText.IDLE);
+    }
   }
+};
+
+const formSubmitHandler = (evt) => {
+  evt.preventDefault();
+  sendFormData(evt.target);
 };
 
 function onFileInputChange() {
@@ -162,7 +165,7 @@ uploadFileControl.addEventListener('change', initUploadModal);
 
 hashtagInput.addEventListener('input', onHashtagInput);
 
-uploadForm.addEventListener('submit', onFormSubmit);
+uploadForm.addEventListener('submit',formSubmitHandler);
 
 effectList.addEventListener('change', onEffectChange);
 
