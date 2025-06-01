@@ -6,6 +6,8 @@ import {error, isHashtagsValid} from './check-hashtag-validity.js';
 import {FILE_TYPES, ERROR_UPLOAD_MESAGE} from './constants.js';
 import {showErrorMessage} from './error-message.js';
 
+const SCALE_STEP = 0.25;
+
 export const uploadForm = document.querySelector('.img-upload__form');
 export const pageBody = document.querySelector('body');
 
@@ -30,7 +32,6 @@ const templateSuccess = document.querySelector('#success').content;
 const templateError = document.querySelector('#error').content;
 
 let scale = 1;
-const SCALE_STEP = 0.25;
 
 const onSmallerClick = () => {
   if (scale > SCALE_STEP) {
@@ -116,27 +117,22 @@ const SubmitButtonText = {
   SENDING: 'Идёт отправка...',
 };
 
-const enabledButton = (text) => {
-  formSubmitButton.disabled = false;
-  formSubmitButton.textContent = text;
-};
-
-const disabledButton = (text) => {
-  formSubmitButton.disabled = true;
+const setButtonState = (isEnabled, text) => {
+  formSubmitButton.disabled = !isEnabled;
   formSubmitButton.textContent = text;
 };
 
 const sendFormData = async (formElement) => {
   const isValid = pristine.validate();
-  if(isValid) {
-    disabledButton(SubmitButtonText.SENDING);
+  if (isValid) {
+    setButtonState(false, SubmitButtonText.SENDING);
     try {
       await sendData(new FormData(formElement));
       appendNotification(templateSuccess, () => closePhotoEditor());
     } catch {
       appendNotification(templateError);
     } finally {
-      enabledButton(SubmitButtonText.IDLE);
+      setButtonState(true, SubmitButtonText.IDLE);
     }
   }
 };
