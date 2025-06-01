@@ -18,6 +18,4 @@ function debounce (callback, timeoutDelay = DEBOUNCE_DEPAY) {
   };
 }
 
-
-
 export{isEscapeKey, numDecline, debounce};

@@ -94,6 +94,7 @@ function closePhotoEditor(){
   document.removeEventListener('keydown', onDocumentKeydown);
   photoEditorResetBtn.removeEventListener('click', onPhotoEditorResetBtnClick);
   resetValues();
+  pristine.reset();
 }
 
 export const initUploadModal = () => {
@@ -109,8 +110,6 @@ export const initUploadModal = () => {
 const onHashtagInput = () => {
   isHashtagsValid(hashtagInput.value);
 };
-
-pristine.addValidator(hashtagInput, isHashtagsValid, error, 2, false);
 
 const SubmitButtonText = {
   IDLE: 'Опубликовать',
@@ -156,6 +155,8 @@ function onFileInputChange() {
     showErrorMessage(ERROR_UPLOAD_MESAGE);
   }
 }
+
+pristine.addValidator(hashtagInput, isHashtagsValid, error, 2, false);
 
 uploadFileControl.addEventListener('change', initUploadModal);
 
