@@ -3,9 +3,9 @@ import {MAX_HASHTAGS, MAX_SYMBOLS} from './constants.js';
 
 let errorMessage = '';
 
-const error = () => errorMessage;
+export const error = () => errorMessage;
 
-const isHashtagsValid = (value) => {
+export const isHashtagsValid = (value) => {
   errorMessage = '';
 
   const inputText = value.toLowerCase().trim();
@@ -55,5 +55,3 @@ const isHashtagsValid = (value) => {
     return !isInvalid;
   });
 };
-
-export {error, isHashtagsValid};

@@ -6,6 +6,8 @@ import {error, isHashtagsValid} from './check-hashtag-validity.js';
 import {FILE_TYPES, ERROR_UPLOAD_MESAGE} from './constants.js';
 import {showErrorMessage} from './error-message.js';
 
+const SCALE_STEP = 0.25;
+
 export const uploadForm = document.querySelector('.img-upload__form');
 export const pageBody = document.querySelector('body');
 
@@ -24,17 +26,12 @@ const scaleControl = uploadForm.querySelector('.scale__control--value');
 const effectList = uploadForm.querySelector('.effects__list');
 const uploadPreviewEffects = document.querySelectorAll('.effects__preview');
 
-const formSubmitButton = uploadForm.querySelector('.img-upload__submit');
-const SubmitButtonText = {
-  IDLE: 'Опубликовать',
-  SENDING: 'Идёт отправка...',
-};
+const formSubmitButton = uploadForm.querySelector('#upload-submit');
 
 const templateSuccess = document.querySelector('#success').content;
 const templateError = document.querySelector('#error').content;
 
 let scale = 1;
-const SCALE_STEP = 0.25;
 
 const onSmallerClick = () => {
   if (scale > SCALE_STEP) {
@@ -97,15 +94,16 @@ function closePhotoEditor(){
   document.removeEventListener('keydown', onDocumentKeydown);
   photoEditorResetBtn.removeEventListener('click', onPhotoEditorResetBtnClick);
   resetValues();
+  pristine.reset();
 }
 
 export const initUploadModal = () => {
   uploadFileControl.addEventListener('change', () => {
     photoEditorForm.classList.remove('hidden');
     pageBody.classList.add('modal-open');
+    onFileInputChange();
     photoEditorResetBtn.addEventListener('click', onPhotoEditorResetBtnClick);
     document.addEventListener('keydown', onDocumentKeydown);
-    onFileInputChange();
   });
 };
 
@@ -113,34 +111,34 @@ const onHashtagInput = () => {
   isHashtagsValid(hashtagInput.value);
 };
 
-pristine.addValidator(hashtagInput, isHashtagsValid, error, 2, false);
+const SubmitButtonText = {
+  IDLE: 'Опубликовать',
+  SENDING: 'Идёт отправка...',
+};
 
-const disabledButton = (text) => {
-  formSubmitButton.disabled = true;
+const setButtonState = (isEnabled, text) => {
+  formSubmitButton.disabled = !isEnabled;
   formSubmitButton.textContent = text;
 };
 
-const enabledButton = (text) => {
-  formSubmitButton.disabled = false;
-  formSubmitButton.textContent = text;
-};
-
-const onFormSubmit = (evt) => {
-  evt.preventDefault();
-  if (pristine.validate()) {
-    disabledButton(SubmitButtonText.SENDING);
-    const formData = new FormData(evt.target);
-    sendData(formData)
-      .then(() => {
-        appendNotification(templateSuccess, closePhotoEditor());
-      })
-      .catch(() => {
-        appendNotification(templateError);
-      })
-      .finally(() =>{
-        enabledButton(SubmitButtonText.IDLE);
-      });
+const sendFormData = async (formElement) => {
+  const isValid = pristine.validate();
+  if (isValid) {
+    setButtonState(false, SubmitButtonText.SENDING);
+    try {
+      await sendData(new FormData(formElement));
+      appendNotification(templateSuccess, () => closePhotoEditor());
+    } catch {
+      appendNotification(templateError);
+    } finally {
+      setButtonState(true, SubmitButtonText.IDLE);
+    }
   }
+};
+
+const formSubmitHandler = (evt) => {
+  evt.preventDefault();
+  sendFormData(evt.target);
 };
 
 function onFileInputChange() {
@@ -158,11 +156,13 @@ function onFileInputChange() {
   }
 }
 
+pristine.addValidator(hashtagInput, isHashtagsValid, error, 2, false);
+
 uploadFileControl.addEventListener('change', initUploadModal);
 
 hashtagInput.addEventListener('input', onHashtagInput);
 
-uploadForm.addEventListener('submit', onFormSubmit);
+uploadForm.addEventListener('submit',formSubmitHandler);
 
 effectList.addEventListener('change', onEffectChange);
 
