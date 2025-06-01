@@ -47,9 +47,13 @@ function applyFilter() {
 }
 
 function configFilter(pictureData) {
-  filterElement.classList.remove('img-filters--inactive');
-  filterElement.addEventListener('click', onFilterChange);
-  pictures = pictureData;
+  if (pictureData && pictureData.length > 0) {
+    filterElement.classList.remove('img-filters--inactive');
+    filterElement.addEventListener('click', onFilterChange);
+    pictures = pictureData;
+  } else {
+    filterElement.classList.add('img-filters--inactive');
+  }
 }
 
 export {configFilter};

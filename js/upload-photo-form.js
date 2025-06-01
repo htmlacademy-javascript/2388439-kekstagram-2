@@ -3,10 +3,8 @@ import {isEscapeKey} from './utils.js';
 import {appendNotification} from './notification.js';
 import {onEffectChange, resetFilter} from './slider-editor.js';
 import {error, isHashtagsValid} from './check-hashtag-validity.js';
-import {FILE_TYPES, ERROR_UPLOAD_MESAGE} from './constants.js';
+import {FILE_TYPES, ERROR_UPLOAD_MESAGE, SCALE_STEP} from './constants.js';
 import {showErrorMessage} from './error-message.js';
-
-const SCALE_STEP = 0.25;
 
 export const uploadForm = document.querySelector('.img-upload__form');
 export const pageBody = document.querySelector('body');
